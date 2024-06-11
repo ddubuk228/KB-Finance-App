@@ -23,6 +23,4 @@
   display: block;
 }
 
-
-
 </style>

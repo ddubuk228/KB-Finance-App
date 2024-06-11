@@ -19,13 +19,21 @@ export const useEntriesStore = defineStore('entries', {
         console.error('Error fetching data:', error);
       }
     },
-    async test() {
+    async getEntryById(id) {
+        try {
+          const response = await axios.get(`http://localhost:3000/transaction/${id}`);
+          return response.data;
+        } catch (error) {
+          console.error('Error fetching entry by id:', error);
+        }
+      },
+    async getNextId() {
         try {
           const response = await axios.get('http://localhost:3000/transaction');
           this.entries = response.data;
           let index = (this.entries.length) -1
           let id = parseInt(this.entries[index].id)
-          return id + 1
+          return String(id + 1)
           
         } catch (error) {
           console.error('Error fetching data:', error);

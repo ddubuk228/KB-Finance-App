@@ -10,7 +10,8 @@ const router = createRouter({
     routes : [
         { path: '/', component: Main },
         { path : '/trnsc', component : TrnscList},
-        { path : '/trnsc/add', component : NewItem}
+        { path : '/trnsc/add', component : NewItem},
+        { path: '/trnsc/edit/:id', component: NewItem, props: true },
 
     ]
 })

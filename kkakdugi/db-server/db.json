@@ -13,8 +13,8 @@
       "type": "expense",
       "category": "식비",
       "account": "간식",
-      "amount": 6000,
-      "memo": "",
+      "amount": 5995,
+      "memo": "메모",
       "date": "2024-06-01"
     },
     {
@@ -169,6 +169,16 @@
       "amount": 90000,
       "memo": "",
       "date": "2024-05-15"
+    },
+    {
+      "id": "21",
+      "type": "income",
+      "category": "교통비",
+      "account": "",
+      "amount": 2000,
+      "memo": "음료",
+      "date": "2024-06-10",
+      "description": "커피"
     }
   ]
 }
