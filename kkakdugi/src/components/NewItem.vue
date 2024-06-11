@@ -97,11 +97,6 @@
       </form>
     </div>
   </div>
-  <div class="row mt-4">
-    <div class="col-12 text-center">
-      <router-link to="/" class="btn btn-secondary">메인 페이지로</router-link>
-    </div>
-  </div>
 </template>
 
 <script>
@@ -183,9 +178,10 @@
   font-family: "MangoDdobak-B";
   font-size: 20px;
   border-radius: 15px; /* 모서리를 둥글게 만듦 */
-  width: 420px;
+  width: 400px;
   margin-left: 750px;
   margin-top: 50px;
+  border : 5px solid rgb(255, 232, 157);
 }
 label {
   padding: 7px;

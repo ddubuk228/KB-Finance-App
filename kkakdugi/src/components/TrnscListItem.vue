@@ -5,7 +5,7 @@
     </div>
     <div class="card-body d-flex justify-content-between align-items-center">
       <div class="card-item">
-        {{ entry.account }} {{ entry.amount }}원 | {{ entry.memo }}
+        {{ entry.account }} {{ entry.amount }}원 | {{entry.memo}}
       </div>
       <div class="card-actions">
         <button @click="editEntry(entry.id)" class="btn btn-outline-warning">
@@ -51,6 +51,7 @@ export default defineComponent({
 .card {
   width: 500px; /* 고정된 카드 너비 */
   margin-bottom: 20px; /* 카드 간 간격 조절 */
+  border : 5px solid rgb(255, 232, 157);
 }
 .card-header {
   background-color: transparent;

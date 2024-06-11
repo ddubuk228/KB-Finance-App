@@ -10,21 +10,12 @@
   "transaction": [
     {
       "id": "3",
-      "type": "expense",
-      "category": "식비",
-      "account": "간식",
-      "amount": 5995,
-      "memo": "메모",
-      "date": "2024-06-01"
-    },
-    {
-      "id": "4",
       "type": "income",
       "category": "식비",
-      "account": "음식점",
-      "amount": 70000,
-      "memo": "",
-      "date": "2024-05-31"
+      "account": "간식",
+      "amount": 5993,
+      "memo": "메모",
+      "date": "2024-06-01"
     },
     {
       "id": "5",
@@ -32,7 +23,7 @@
       "category": "교통비",
       "account": "지하철",
       "amount": 2500,
-      "memo": "",
+      "memo": "1호선",
       "date": "2024-05-30"
     },
     {
@@ -179,6 +170,15 @@
       "memo": "음료",
       "date": "2024-06-10",
       "description": "커피"
+    },
+    {
+      "id": "22",
+      "type": "expense",
+      "category": "식비",
+      "account": "간식",
+      "amount": 5995,
+      "memo": "메모",
+      "date": "2024-06-01"
     }
   ]
 }
