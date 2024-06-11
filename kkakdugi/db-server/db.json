@@ -3,10 +3,10 @@
     {
       "id": "1",
       "name": "깍두기",
-      "email": "kkakdugi@gamil.com",
+      "email": "abc@gamil.com",
       "notification": true,
       "language": false,
-      "theme": true
+      "theme": false
     }
   ],
   "transaction": [
