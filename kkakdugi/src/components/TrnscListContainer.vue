@@ -1,18 +1,40 @@
 <template>
   <div class="container">
     <div class="row">
-      <div
-        class="col-12"
-        v-for="(entry, index) in filteredEntries"
-        :key="index"
-      >
-      <div class="transaction-item">
-        <TrnscListItem
-          :entry="entry"
-          @edit-entry="editEntry"
-          @delete-entry="deleteEntry"
-        />
+      <div class="col-12">
+        <h2 class="text-center mb-4">
+          <input type="date" v-model="selectedDate" class="form-control mb-2" />
+        </h2>
+        <div class="button">
+            <button
+              class="btn btn-warning mr-2"
+              @click="selectedType = 'income'"
+            >
+              수입
+            </button>
+            <button
+              class="btn btn-Light mr-2"
+              @click="selectedType = 'expense'"
+            >
+              지출
+            </button>
+
+          <select v-model="selectedCategory" class="form-control mb-2">
+            <option value="">모든 카테고리</option>
+            <option value="식비">식비</option>
+            <option value="교통비">교통비</option>
+            <option value="통신비">통신비</option>
+            <option value="기타">기타</option>
+          </select>
         </div>
+      </div>
+    </div>
+    <TrnscList />
+    <div class="row mt-4">
+      <div class="col-12 text-center">
+        <router-link to="/" class="btn btn-secondary"
+          >메인 페이지로</router-link
+        >
       </div>
     </div>
   </div>
@@ -21,14 +43,13 @@
 <script>
 import { useEntriesStore } from "../store/entries";
 import { computed } from "vue";
-import TrnscListItem from "./TrnscListItem.vue";
+import TrnscList from "./TrnscList.vue";
 
 export default {
-  name: "TrnscList",
+  name: "TrnscListContainer",
   components: {
-    TrnscListItem,
+    TrnscList,
   },
-
   setup() {
     const store = useEntriesStore();
 
