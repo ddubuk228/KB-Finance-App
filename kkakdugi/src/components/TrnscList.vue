@@ -180,6 +180,7 @@
     color : black;
     background-color: rgb(243, 208, 91);
     border: rgb(243, 208, 91);
+    width: 60px;
   }
   </style>
   

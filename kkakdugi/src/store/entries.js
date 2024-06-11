@@ -12,7 +12,7 @@ export const useEntriesStore = defineStore('entries', {
   actions: {
     async fetchEntries() {
       try {
-        const response = await axios.get('http://localhost:3000/transaction');
+        const response = await axios.get('http://localhost:3000/transaction?sort=date&order=desc');
         this.entries = response.data;
         this.filterEntries();
       } catch (error) {

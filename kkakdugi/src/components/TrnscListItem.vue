@@ -49,7 +49,7 @@ export default defineComponent({
 </script>
 <style scoped>
 .card {
-  width: 500px; /* 고정된 카드 너비 */
+  width: 400px; /* 고정된 카드 너비 */
   margin-bottom: 20px; /* 카드 간 간격 조절 */
   border : 5px solid rgb(255, 232, 157);
 }
