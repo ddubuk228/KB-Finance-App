@@ -4,9 +4,9 @@
       "id": "1",
       "name": "깍두기",
       "email": "kkakdugi@gamil.com",
-      "notification": false,
+      "notification": true,
       "language": false,
-      "theme": false
+      "theme": true
     }
   ],
   "transaction": [

@@ -35,6 +35,7 @@
                   type="checkbox"
                   id="notificationSwitch"
                   v-model="userInfo.notification"
+                  @click="toggleNotification"
               />
               <label for="notificationSwitch"></label>
             </div>
@@ -45,6 +46,7 @@
                   type="checkbox"
                   id="languageSwitch"
                   v-model="userInfo.language"
+                  @click="toggleLanguageSwitch"
               />
               <label for="languageSwitch"></label>
             </div>
@@ -55,6 +57,7 @@
                   type="checkbox"
                   id="themeSwitch"
                   v-model="userInfo.theme"
+                  @click="toggleThemeSwitch"
               />
               <label for="themeSwitch"></label>
             </div>
@@ -76,7 +79,7 @@
   </template>
   
   <script>
-  import { useUserStore } from '@/store/user'; // Adjust the path based on your project structure
+  import { useUserStore } from '@/store/user'; 
   
   export default {
     data() {
@@ -101,6 +104,7 @@
         }
       }
     },
+
     async mounted() {
       const userStore = useUserStore();
       try {
@@ -111,7 +115,19 @@
       } catch (error) {
         console.error('데이터를 가져오는 도중 에러 발생:', error);
       }
-    }
+    },
+
+    toggleNotification() {
+      this.userInfo.notification = !this.userInfo.notification;
+    },
+    toggleLanguageSwitch() {
+      this.userInfo.notification = !this.userInfo.notification;
+    },
+    toggleThemeSwitch() {
+      this.userInfo.notification = !this.userInfo.notification;
+    },
+
+
   };
   </script>
   
