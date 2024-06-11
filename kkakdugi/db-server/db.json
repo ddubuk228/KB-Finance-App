@@ -2,9 +2,11 @@
   "users": [
     {
       "id": "1",
-      "name": "손님",
-      "email": "abc@gmail.com",
-      "image": ""
+      "name": "깍두기",
+      "email": "kkakdugi@gamil.com",
+      "notification": false,
+      "language": false,
+      "theme": false
     }
   ],
   "transaction": [
