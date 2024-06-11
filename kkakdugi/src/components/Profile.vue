@@ -110,9 +110,7 @@
       // 페이지가 로드될 때 한 번만 실행되도록 onMounted 사용
       onMounted(() => {
         fetchUserData();
-        // 로컬 스토리지에 저장된 언어 설정을 다시 로드
         userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
-        // 언어 설정에 따라 로컬라이제이션 설정
         locale.value = userInfo.value.language ? 'en' : 'ko';
       });
   
@@ -127,15 +125,10 @@
   
         try {
           await userStore.editUser(userInfo.value);
-          // 사용자 데이터 업데이트
           fetchUserData();
-          // 로컬 스토리지에 사용자가 변경한 언어 설정 저장
           localStorage.setItem('userLanguage', userInfo.value.language.toString());
-          // 테마 설정 저장
           localStorage.setItem('userTheme', userInfo.value.theme.toString());
-          // 언어 설정에 따라 로컬라이제이션 설정
           locale.value = userInfo.value.language ? 'ko' : 'en';
-          // 페이지 강제 새로고침
           window.location.reload();
         } catch (error) {
           console.error('데이터를 수정하는 도중 에러 발생:', error);
@@ -181,7 +174,7 @@
     margin-bottom: 20px;
     font-family: "MangoDdobak-B";
     font-size: 20px;
-    border-radius: 15px; /* 모서리를 둥글게 만듦 */
+    border-radius: 15px; 
     width: 400px;
   }
   
@@ -212,9 +205,9 @@
   }
   
   .switch-label {
-    font-size: 13px; /* 글씨 크기 줄임 */
+    font-size: 13px; 
     margin-left: 16px;
-    flex-basis: 4%; /* 각 레이블 요소의 너비를 균등하게 설정 */
+    flex-basis: 4%; 
   }
   
   .ios-switch {
@@ -275,11 +268,11 @@
   }
 
   .darkTheme .ios-switch label {
-  background-color: #666; /* 어두운 배경색 */
+  background-color: #666; 
 }
 
 .darkTheme .ios-switch input:checked + label {
-  background-color: #ffc400; /* 어두운 배경색 */
+  background-color: #ffc400; 
 }
 
   @font-face {

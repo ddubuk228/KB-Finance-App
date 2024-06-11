@@ -6,8 +6,8 @@ import { createI18n } from 'vue-i18n';
 import messages from './local.js';
 
 const i18n = createI18n({
-    legacy: false, // legacy 모드를 비활성화합니다.
-    locale: 'ko', // 기본 언어
+    legacy: false, // legacy 모드를 비활성화
+    locale: 'ko', 
     messages,
   });
   
