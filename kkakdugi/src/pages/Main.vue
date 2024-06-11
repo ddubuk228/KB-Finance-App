@@ -1,12 +1,15 @@
 <template>
     <div>
-        메인
+        <Chart/>
     </div>
 </template>
 
 <script>
+import Chart from './Chart.vue';
+
     export default {
-        
+        name : "Main",
+        components : {Chart}
     }
 </script>
 
