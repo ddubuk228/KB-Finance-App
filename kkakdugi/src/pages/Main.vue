@@ -5,29 +5,29 @@
    <div class="summary">
       <div class="total card">
          <div class="card-body">
-            {{ currentMonth }}월<br />
-            수입
+            {{ currentMonth }}{{ t('month') }}<br />
+            {{ t('income') }}
          </div>
          <div class="amount" style="color: greenyellow;">
-            {{ formatNumber(totalIncome) }}원
+            {{ formatNumber(totalIncome) }}{{ t('won') }}
          </div>
       </div>
       <div class="total card">
          <div class="card-body">
-            {{ currentMonth }}월<br />
-            지출
+            {{ currentMonth }}{{ t('month') }}<br />
+            {{ t('expense') }}
          </div>
          <div class="amount" style="color: red;">
-            {{ formatNumber(totalExpense) }}원
+            {{ formatNumber(totalExpense) }}{{ t('won') }}
          </div>
       </div>
       <div class="total card">
          <div class="card-body">
-            {{ currentMonth }}월<br />
-            순수익
+            {{ currentMonth }} {{ t('month') }}<br />
+            {{ t('netProfit') }}
          </div>
          <div class="amount" style="color: blue;">
-            {{ formatNumber(netProfit) }}원
+            {{ formatNumber(netProfit) }}{{ t('won') }}
          </div>
       </div>
    </div>
@@ -105,15 +105,16 @@ export default {
       };
 
 
-      watch(
-         () => store.selectMonth,
-         async (newMonth) => {
-            currentMonth.value = newMonth
-            totalIncome.value = await store.getTotalIncome();
-            totalExpense.value = await store.getTotalExpense();
-            netProfit.value = (totalIncome.value - totalExpense.value);
-         }
-      );
+        watch(
+            () => store.selectMonth,
+            async (newMonth) => {
+                currentMonth.value = newMonth
+                totalIncome.value = await store.getTotalIncome();
+                totalExpense.value = await store.getTotalExpense();
+                netProfit.value = (totalIncome.value - totalExpense.value);
+
+            }
+        );
 
 
       onMounted(async () => {

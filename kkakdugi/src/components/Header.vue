@@ -4,7 +4,7 @@
       <h1>KD</h1>
     </router-link>
 
-    <div class="menu"><router-link to="/trnsc">거래 내역</router-link></div>
+    <div class="menu"><router-link to="/trnsc">{{ t('history') }}</router-link></div>
 
     <button class="settings-button" @click="openSettings">
       <router-link to="/profile" style="text-decoration: none; color: black; /"><i class="fas fa-cog"></i></router-link>
@@ -13,8 +13,36 @@
 </template>
 
 <script>
+import { ref, onMounted} from 'vue';
+import { useI18n } from "vue-i18n";
 export default {
   setup() {
+    const { t, locale } = useI18n();
+      const userInfo = ref({ language: 'ko' });
+
+        const fetchUserData = async () => {
+            try {
+             const user = await userStore.fetchUser();
+             if (user) {
+             userInfo.value = { ...user };
+            }
+            } catch (error) {
+             console.error('데이터를 가져오는 도중 에러 발생:', error);
+            }
+        };
+            onMounted(() => {
+                fetchUserData();
+                userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+                 locale.value = userInfo.value.language ? 'en' : 'ko';
+         });
+
+         return {
+         userTheme: localStorage.getItem('userTheme') === 'true',
+         t,
+         locale,
+         userInfo
+      };
+
 
   },
 };
