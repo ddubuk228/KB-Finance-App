@@ -33,8 +33,8 @@
         <div class="container">
             <div class="btnbox">
                 <button class="btnlist">
-                    <router-link to="/trnsc" style="text-decoration: none; color: black;">
-                        + 거래 내역 목록</router-link></button>
+                    <router-link to="/trnsc" :style="{ color: userTheme ? 'white' : 'black', 'text-decoration': 'none' }">
+                            + 거래 내역 목록</router-link></button>
             </div>
             <div class="row">
                 <div class="col-12" v-for="(entry, index) in entries" :key="index">
@@ -114,6 +114,7 @@ export default {
             entries,
             currentMonth,
             formatNumber,
+            userTheme: localStorage.getItem('userTheme') === 'true'
         };
     }
 }

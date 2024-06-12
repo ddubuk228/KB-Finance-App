@@ -6,7 +6,7 @@
       "email": "abc@gamil.com",
       "notification": true,
       "language": false,
-      "theme": false
+      "theme": true
     }
   ],
   "transaction": [
