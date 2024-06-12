@@ -1,6 +1,6 @@
 <template>
   <header>
-    <h1><router-link to="/" style="text-decoration: none; color: black;">kkakdugi</router-link></h1>
+    <router-link to="/" style="text-decoration: none; "><h1>KD</h1></router-link>
     <div id="calendar" class="calendar">
       <div class="dropdown">
         <div class="dropdown-selected" @click="toggleDropdown">{{ months[selectMonth - 1] }}월</div>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <button class="settings-button" @click="openSettings">
-      <i class="fas fa-cog"></i>
+      <router-link to="/profile" style="text-decoration: none; color: black; /"><i class="fas fa-cog"></i></router-link>
     </button>
   </header>
 </template>
@@ -76,6 +76,8 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 500px;
+  border-radius: 5px;
 }
 
 .settings-button {
@@ -104,11 +106,12 @@ header {
 
 .dropdown-selected {
   padding: 10px;
-  border: 1px solid #ccc;
   cursor: pointer;
   background-color: #fff;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 0.375rem;
+  background-color: rgb(255, 232, 157);
+  font-family: "MangoDdobak-B";
 }
 
 .dropdown-options {
@@ -116,17 +119,18 @@ header {
   grid-template-columns: repeat(3, 60px);
   border: 1px solid #ccc;
   position: absolute;
-  width: 100%;
+  width: 185px;
   background-color: white;
   z-index: 1000;
-  border-radius: 10px;
+  border-radius: 0.375rem;
   background-color: #fff;
   /* Set background color */
+  padding: 1px;
+  font-family: "MangoDdobak-B";
 }
 
 .dropdown-option {
   padding: 10px;
-  border: 1px solid #ccc;
   cursor: pointer;
   text-align: center;
   background-color: #fff;
@@ -136,5 +140,9 @@ header {
 
 .dropdown-option:hover {
   background-color: #f1f1f1;
+}
+
+h1 {
+  color: #474745;
 }
 </style>
