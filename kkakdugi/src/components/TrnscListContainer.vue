@@ -10,21 +10,22 @@
               class="btn btn-warning mr-2"
               @click="selectedType = 'income'"
             >
-              수입
+            {{ t('income') }}
             </button>
             <button
+             :class="{ 'btn': true, 'btn-Light': userTheme, 'btn-light': !userTheme }"
               class="btn btn-Light mr-2"
               @click="selectedType = 'expense'"
             >
-              지출
+            {{ t('expense') }}
             </button>
 
           <select v-model="selectedCategory" class="form-control mb-2">
-            <option value="">모든 카테고리</option>
-            <option value="식비">식비</option>
-            <option value="교통비">교통비</option>
-            <option value="통신비">통신비</option>
-            <option value="기타">기타</option>
+            <option value="">{{ t('category') }}</option>
+            <option value="식비">{{ t('food') }}</option>
+            <option value="교통비">{{ t('transportation') }}</option>
+            <option value="통신비">{{ t('communication') }}</option>
+            <option value="기타">{{ t('etc') }}</option>
           </select>
         </div>
       </div>
@@ -33,7 +34,7 @@
     <div class="row mt-4">
       <div class="col-12 text-center">
         <router-link to="/" class="btn btn-secondary"
-          >메인 페이지로</router-link
+          >{{ t('mainPage') }}</router-link
         >
       </div>
     </div>
@@ -42,8 +43,9 @@
 
 <script>
 import { useEntriesStore } from "../store/entries";
-import { computed } from "vue";
+import { computed, ref, onMounted } from "vue";
 import TrnscList from "./TrnscList.vue";
+import { useI18n } from "vue-i18n";
 
 export default {
   name: "TrnscListContainer",
@@ -52,6 +54,25 @@ export default {
   },
   setup() {
     const store = useEntriesStore();
+    const { t, locale } = useI18n();
+    const userInfo = ref({ language: 'ko' });
+
+    const fetchUserData = async () => {
+        try {
+          const user = await userStore.fetchUser();
+          if (user) {
+            userInfo.value = { ...user };
+          }
+        } catch (error) {
+          console.error('데이터를 가져오는 도중 에러 발생:', error);
+        }
+      };
+    onMounted(() => {
+      fetchUserData();
+      userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+      locale.value = userInfo.value.language ? 'en' : 'ko';
+    });
+
 
     const selectedDate = computed({
       get: () => store.selectedDate,
@@ -87,6 +108,10 @@ export default {
       filteredEntries,
       editEntry,
       deleteEntry,
+      userTheme: localStorage.getItem('userTheme') === 'false',
+      t,
+      locale,
+      userInfo,
     };
   },
 };

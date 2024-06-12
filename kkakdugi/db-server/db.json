@@ -5,8 +5,9 @@
       "name": "깍두기",
       "email": "abc@gamil.com",
       "notification": true,
-      "language": false,
-      "theme": false
+      "language": true,
+      "theme": true,
+      "maxBudget": "10000"
     }
   ],
   "transaction": [
@@ -25,7 +26,7 @@
       "category": "식비",
       "account": "간식",
       "amount": 1000000,
-      "memo": "메모",
+      "memo": "ㄴㄹㄴㄹㄴㄴㄹㄴㅇㄹㅇㄹㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴㄴ",
       "date": "2024-06-11"
     },
     {
