@@ -31,14 +31,16 @@
               </select>
               <button
                 type="button"
-                class="btn btn-outline-warning"
+                class="btn"
+                :class="{'btn-warning': newEntry.type === 'income', 'btn-outline-warning': newEntry.type !== 'income'}"
                 @click="newEntry.type = 'income'"
               >
                 수입
               </button>
               <button
                 type="button"
-                class="btn btn-outline-warning"
+                class="btn"
+                :class="{'btn-warning': newEntry.type === 'expense', 'btn-outline-warning': newEntry.type !== 'expense'}"
                 @click="newEntry.type = 'expense'"
               >
                 지출
@@ -153,39 +155,42 @@
   </script>
   
   <style scoped>
-  .card {
-    margin-bottom: 20px;
-    font-family: "MangoDdobak-B";
-    font-size: 20px;
-    border-radius: 15px;
-    margin-top: 50px;
-    border: 5px solid rgb(255, 232, 157);
-    font-family: "MangoDdobak-B";
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 400px
-  }
-  .card-body {
-    width: 350px
-  }
-  label {
-    padding: 7px;
-  }
-  input,
-  select {
-    border: 2px solid rgb(243, 208, 91);
-  }
-  @font-face {
-    font-family: "MangoDdobak-B";
-    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2")
-      format("woff2");
-    font-weight: 700;
-    font-style: normal;
-  }
-  button {
-    width: 70px;
-    margin-left: 10px;
-  }
+    .card {
+      margin-bottom: 20px;
+      font-family: "MangoDdobak-B";
+      font-size: 20px;
+      border-radius: 15px;
+      margin-top: 50px;
+      border: 5px solid rgb(255, 232, 157);
+      font-family: "MangoDdobak-B";
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 400px;
+    }
+    .card-body {
+      width: 380px;
+    }
+    label {
+      padding: 7px;
+    }
+    input,
+    select {
+      border: 2px solid rgb(243, 208, 91);
+    }
+    select {
+        height: 50px;
+    }
+    @font-face {
+      font-family: "MangoDdobak-B";
+      src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2")
+        format("woff2");
+      font-weight: 700;
+      font-style: normal;
+    }
+    button {
+      width: 80px;
+      margin-left: 10px;
+    }
   </style>
   
