@@ -18,6 +18,10 @@
             <label for="email">{{ t('email') }}</label>
             <input type="email" class="form-control" id="email" v-model="userInfo.email" required />
           </div>
+          <div class="form-group">
+            <label for="maxBudget">{{ t('maxBudget') }}</label>
+            <input type="text" class="form-control" id="maxBudget" v-model="userInfo.maxBudget" required />
+          </div>
           <div class="switch-group">
             <label class="switch-label">{{ t('notification') }}</label>
             <div class="ios-switch">
@@ -90,6 +94,7 @@
         id: '1',
         name: '',
         email: '',
+        maxBudget: '',
         notification: false,
         language: localStorage.getItem('userLanguage') === 'true',
         theme: localStorage.getItem('userTheme') === 'true',
