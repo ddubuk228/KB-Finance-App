@@ -13,6 +13,7 @@
               수입
             </button>
             <button
+             :class="{ 'btn': true, 'btn-Light': userTheme, 'btn-light': !userTheme }"
               class="btn btn-Light mr-2"
               @click="selectedType = 'expense'"
             >
@@ -87,6 +88,7 @@ export default {
       filteredEntries,
       editEntry,
       deleteEntry,
+      userTheme: localStorage.getItem('userTheme') === 'false'
     };
   },
 };

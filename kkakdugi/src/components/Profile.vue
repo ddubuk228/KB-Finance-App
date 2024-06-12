@@ -1,3 +1,5 @@
+//Profile
+
 <template>
     <div class="card" :class="{ 'darkTheme': userInfo.theme }">
       <div class="card-header">
@@ -15,6 +17,10 @@
           <div class="form-group">
             <label for="email">{{ t('email') }}</label>
             <input type="email" class="form-control" id="email" v-model="userInfo.email" required />
+          </div>
+          <div class="form-group">
+            <label for="maxBudget">{{ t('maxBudget') }}</label>
+            <input type="text" class="form-control" id="maxBudget" v-model="userInfo.maxBudget" required />
           </div>
           <div class="switch-group">
             <label class="switch-label">{{ t('notification') }}</label>
@@ -88,6 +94,7 @@
         id: '1',
         name: '',
         email: '',
+        maxBudget: '',
         notification: false,
         language: localStorage.getItem('userLanguage') === 'true',
         theme: localStorage.getItem('userTheme') === 'true',
@@ -176,6 +183,7 @@
     font-size: 20px;
     border-radius: 15px; 
     width: 400px;
+    border : 5px solid rgb(255, 232, 157);
   }
   
   .label {
@@ -200,14 +208,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 20px;
-    padding: 10px;
+    margin-top: 22px;
+    padding: 8px;
   }
   
   .switch-label {
     font-size: 13px; 
-    margin-left: 16px;
+    margin-left: 5px;
     flex-basis: 4%; 
+    white-space: nowrap;
   }
   
   .ios-switch {
@@ -215,7 +224,7 @@
     display: inline-block;
     width: 100px;
     height: 34px;
-    margin-left: 10px;
+    margin-left: 2px;
   }
   
   .ios-switch input {
@@ -227,7 +236,7 @@
   .ios-switch label {
     position: absolute;
     top: 0;
-    left: 0;
+    left: 6px;
     right: 0;
     bottom: 0;
     background-color: #ccc;
@@ -241,7 +250,7 @@
     content: "";
     height: 26px;
     width: 26px;
-    left: 4px;
+    left: 12px;
     bottom: 4px;
     background-color: white;
     border-radius: 50%;
@@ -260,11 +269,6 @@
     display: flex;
     margin-left: 145px;
     margin-top: 5px;
-  }
-  
-  .darkTheme {
-    background-color: #ee2424; 
-    color: #000000; 
   }
 
   .darkTheme .ios-switch label {
