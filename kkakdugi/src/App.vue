@@ -1,7 +1,7 @@
 <template>
   <div id="wrap">
     <Header />
-    <div class="content-container">
+    <div class="content-container" :class="{ 'dark-mode': userTheme }">
       <router-view />
     </div>
   </div>
@@ -11,9 +11,15 @@
   import Header from './components/Header.vue';
   export default {
     name: "App",
-    components: { Header }
-  };
+    components: { Header },
+    data() {
+      return {
+        userTheme: localStorage.getItem('userTheme') === 'true'
+      };
+    },
+};
 </script>
+
 
 <style>
 #wrap {
@@ -33,6 +39,11 @@
   padding: 20px;
   max-width: 500px; /* Max width for larger screens */
   margin-top: 100px;
+}
+
+.dark-mode {
+  background-color: #333333; 
+  color: #ffffff; 
 }
 
 </style>
