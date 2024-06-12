@@ -4,8 +4,8 @@
         <small class="text-muted">{{ entry.date }}</small>
       </div>
       <div class="card-body d-flex justify-content-between align-items-center">
-        <div class="card-item">
-          {{ entry.account }} {{ entry.amount }}원  <div class="memo">{{ entry.memo }}</div>
+        <div class="card-item" @click="toggleModal">
+          {{ entry.account }} {{ entry.amount }}원
         </div>
         <div class="card-actions">
           <button @click="editEntry(entry.id)" class="btn btn-outline-warning">
@@ -16,13 +16,16 @@
           </button>
         </div>
       </div>
+      <!-- 모달 창 컴포넌트 -->
+      <MemoModal :show="showModal" :transactionDate="entry.date" :transactionDetails="entry.account" :amount="entry.amount" :memo="entry.memo" @close="toggleModal" />
     </div>
   </template>
   
   <script>
   import { useEntriesStore } from "../store/entries";
-  import { defineComponent, toRefs } from "vue";
+  import { defineComponent, toRefs, ref } from "vue";
   import { useRouter } from "vue-router";
+  import MemoModal from "@/components/MemoModal.vue"; // 모달 컴포넌트 임포트
   
   export default defineComponent({
     props: {
@@ -38,14 +41,26 @@
         router.push({ path: `/trnsc/edit/${id}` });
       };
   
+      // 모달 상태 관리
+      const showModal = ref(false);
+      const toggleModal = () => {
+        showModal.value = !showModal.value;
+      };
+  
       return {
         ...toRefs(props),
         editEntry,
-        deleteEntry
+        deleteEntry,
+        showModal,
+        toggleModal,
       };
+    },
+    components: {
+      MemoModal,
     },
   });
   </script>
+  
   
   <style scoped>
   .card {
@@ -74,12 +89,6 @@
   .card-actions {
     display: flex;
     gap: 10px;
-  }
-  .memo {
-    max-height: 50px; /* 원하는 최대 높이로 설정 */
-    overflow-y: auto; /* 스크롤 가능하게 설정 */
-    white-space: pre-wrap; /* 줄 바꿈을 유지하기 위해 설정 */
-    word-break: break-word;
   }
   </style>
   
