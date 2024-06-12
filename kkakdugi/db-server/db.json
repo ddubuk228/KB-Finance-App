@@ -184,10 +184,10 @@
     },
     {
       "id": "20",
-      "type": "income",
+      "type": "expense",
       "category": "식비",
       "account": "음식점",
-      "amount": 90000,
+      "amount": 7000,
       "memo": "",
       "date": "2024-06-15"
     },
