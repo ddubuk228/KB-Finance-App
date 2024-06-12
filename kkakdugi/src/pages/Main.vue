@@ -3,19 +3,19 @@
             <div class="summary">
                 <div class="total card">
                     <div class="card-body">
-                        수입<br />
+                        {{ currentMonth }}월 수입<br />
                         <span style="color: greenyellow;">{{ totalIncome }}</span>
                     </div>
                 </div>
                 <div class="total card">
                     <div class="card-body">
-                        지출<br />
+                        {{ currentMonth }}월 지출<br />
                         <span style="color: red;">{{ totalExpense }}</span>
                     </div>
                 </div>
                 <div class="total card">
                     <div class="card-body">
-                        순수익<br />
+                        {{ currentMonth }}월 순수익<br />
                         <span style="color: blue;">{{ netProfit }}</span>
                     </div>
                 </div>
@@ -53,6 +53,7 @@ export default {
         const totalExpense = ref(0);
         const netProfit = ref(0);
         const entries = ref([]);
+        const currentMonth = ref(new Date().getMonth() + 1);
 
         const fetchRecentEntries = async () => {
             try {
@@ -62,6 +63,16 @@ export default {
                 console.error('Error fetching recent entries:', error);
             }
         };
+
+        watch(
+            () => store.selectMonth,
+            async (newMonth) => {
+                currentMonth.value = newMonth
+                totalIncome.value = await store.getTotalIncome();
+                totalExpense.value = await store.getTotalExpense();
+                netProfit.value = totalIncome.value - totalExpense.value;
+            }
+        );
 
 
         onMounted(async () => {
@@ -77,7 +88,8 @@ export default {
             totalIncome,
             totalExpense,
             netProfit,
-            entries
+            entries,
+            currentMonth,
         };
     }
 }
@@ -95,7 +107,7 @@ export default {
     width: 500px;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 150px);
+    grid-template-columns: repeat(3, 160px);
     justify-content: space-between;
 }
 
@@ -109,7 +121,7 @@ export default {
 }
 
 .card-body {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: bold;
     display: grid;
     align-items: center;

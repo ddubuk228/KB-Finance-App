@@ -8,10 +8,9 @@ export const useEntriesStore = defineStore('entries', {
     selectedDate: '',
     selectedType: '',
     selectedCategory: '',
-    selectLimit: "",
-    selectMonth: "",
     totalIncome: 0,
     totalExpense: 0,
+    selectMonth: "",
   }),
   actions: {
     async fetchEntries() {
