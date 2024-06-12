@@ -35,7 +35,9 @@
                     </div>
                 </div>
             </div>
-
+            <div>
+                <Chart />
+            </div>
         </div>
     </template>
 
@@ -44,9 +46,11 @@ import { useEntriesStore } from "../store/entries";
 import { ref, onMounted, watch } from 'vue';
 import TrnscListItem from "@/components/TrnscListItem.vue";
 import axios from "axios";
+import Chart from './Chart.vue';
 
 export default {
-    components: { TrnscListItem },
+
+    components: { TrnscListItem, Chart },
     setup() {
         const store = useEntriesStore();
         const totalIncome = ref(0);
