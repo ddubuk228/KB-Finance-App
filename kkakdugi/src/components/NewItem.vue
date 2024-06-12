@@ -2,50 +2,50 @@
   <div class="wrap">
     <div class="card">
       <div class="card-header">
-        <h4 class="card-title mb-0">거래 내역 추가</h4>
+        <h4 class="card-title mb-0">{{ t('addTransaction') }}</h4>
       </div>
       <div class="card-body">
         <form @submit.prevent="submitForm">
           <div class="form-group">
-            <label for="date">날짜</label>
+            <label for="date">{{ t('date') }}</label>
             <input type="date" class="form-control" id="date" v-model="newEntry.date" required />
           </div>
           <div class="form-group">
-            <label for="type">분류</label>
+            <label for="type">{{ t('category') }}</label>
             <div class="d-flex">
               <select class="form-control mr-2" id="category" v-model="newEntry.category" required>
-                <option value="식비">식비</option>
-                <option value="교통비">교통비</option>
-                <option value="통신비">통신비</option>
-                <option value="기타">기타</option>
+                <option value="식비">{{ t('food') }}</option>
+                <option value="교통비">{{ t('transportation') }}</option>
+                <option value="통신비">{{ t('communication') }}</option>
+                <option value="기타">{{ t('etc') }}</option>
               </select>
               <button type="button" class="btn btn-outline-warning" @click="newEntry.type = 'income'">
-                수입
+                {{ t('income') }}
               </button>
               <button type="button" class="btn btn-outline-warning" @click="newEntry.type = 'expense'">
-                지출
+                {{ t('expense') }}
               </button>
             </div>
           </div>
           <div class="form-group">
-            <label for="description">거래내역</label>
+            <label for="description">{{ t('history') }}</label>
             <input type="text" class="form-control" id="description" v-model="newEntry.account"
               placeholder="거래내역을 입력하세요" required />
           </div>
           <div class="form-group">
-            <label for="amount">금액</label>
+            <label for="amount">{{ t('amount') }}</label>
             <input type="number" class="form-control" id="amount" v-model="newEntry.amount" placeholder="금액을 입력하세요"
               required />
           </div>
           <div class="form-group">
-            <label for="memo">메모</label>
+            <label for="memo">{{ t('memo') }}</label>
             <input type="text" class="form-control" id="memo" v-model="newEntry.memo" placeholder="메모를 입력하세요" />
           </div>
           <br />
           <div class="button-group">
-            <button type="submit" class="btn btn-outline-warning">등록</button>
-            <button type="button" class="btn btn-outline-warning" @click="submitForm">수정</button>
-            <button type="button" class="btn btn-outline-warning" @click="cancelEntry">취소</button>
+            <button type="submit" class="btn btn-outline-warning">{{ t('registration') }}</button>
+            <button type="button" class="btn btn-outline-warning" @click="submitForm">{{ t('edit') }}</button>
+            <button type="button" class="btn btn-outline-warning" @click="cancelEntry">{{ t('cancle') }}</button>
           </div>
         </form>
       </div>
@@ -56,8 +56,31 @@
 <script>
 import axios from "axios";
 import { useEntriesStore } from "../store/entries";
-
+import { useI18n } from "vue-i18n";
+import { onMounted, ref } from "vue";
 export default {
+  setup() {
+    const { t, locale } = useI18n();
+    const userInfo = ref({ language: 'ko' });
+
+    const fetchUserData = async () => {
+        try {
+          const user = await userStore.fetchUser();
+          if (user) {
+            userInfo.value = { ...user };
+          }
+        } catch (error) {
+          console.error('데이터를 가져오는 도중 에러 발생:', error);
+        }
+      };
+    onMounted(() => {
+      fetchUserData();
+      userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+      locale.value = userInfo.value.language ? 'en' : 'ko';
+    });
+
+    return { t, locale, userInfo };
+  },
   props: {
     id: String,
   },
