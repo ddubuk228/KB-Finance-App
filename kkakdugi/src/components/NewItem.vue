@@ -19,10 +19,20 @@
                 <option value="통신비">통신비</option>
                 <option value="기타">기타</option>
               </select>
-              <button type="button" class="btn btn-outline-warning" @click="newEntry.type = 'income'">
+              <button
+                type="button"
+                class="btn"
+                :class="{'btn-warning': newEntry.type === 'income', 'btn-outline-warning': newEntry.type !== 'income'}"
+                @click="newEntry.type = 'income'"
+              >
                 수입
               </button>
-              <button type="button" class="btn btn-outline-warning" @click="newEntry.type = 'expense'">
+              <button
+                type="button"
+                class="btn"
+                :class="{'btn-warning': newEntry.type === 'expense', 'btn-outline-warning': newEntry.type !== 'expense'}"
+                @click="newEntry.type = 'expense'"
+              >
                 지출
               </button>
             </div>
@@ -128,11 +138,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 400px
+  width: 450px
 }
 
 .card-body {
-  width: 350px
+  width: 400px
 }
 
 label {
@@ -157,6 +167,8 @@ button {
 }
 
 .wrap {
-  width: 460px;
+    width: 500px;
 }
+
+
 </style>
