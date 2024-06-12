@@ -11,10 +11,10 @@ const router = createRouter({
     routes : [
         { path: '/', component: Main },
         { path: '/trnsc/edit/:id', component: NewItem, props: true },
-        { path : '/trnsc', component : TrnscListContainer},
         { path : '/trnsc/add', component : NewItem},
-        { path : '/profile', component : Profile}
-
+        { path : '/profile', component : Profile},
+        { path : '/trnsc', component : TrnscListContainer},
+        { path : '/trnsc/:trnscId', component : NewItem},
     ]
 })
 

@@ -32,7 +32,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 20px;
   max-width: 500px; /* Max width for larger screens */
-  margin-top: 20px;
+  margin-top: 100px;
 }
 
 </style>

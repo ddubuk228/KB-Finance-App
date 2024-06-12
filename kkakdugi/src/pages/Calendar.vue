@@ -20,7 +20,7 @@ export default {
   setup() {
     const store = useEntriesStore(); // Store instance
     const currentMonth = new Date().getMonth() + 1; // Get current month
-    const selectMonth = ref(currentMonth); // Reactive variable for selected month
+    const selectMonth = ref(); // Reactive variable for selected month
     const dropdownOpen = ref(false); // Reactive variable for dropdown state
     const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     
@@ -42,7 +42,9 @@ export default {
 
     // Initialize selected month in the store
     onMounted(() => {
-      store.setMonth(currentMonth);
+      selectMonth.value = store.selectMonth || currentMonth;
+      store.setMonth(selectMonth.value);
+      
     });
 
     // Method for handling settings button click

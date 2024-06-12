@@ -73,7 +73,7 @@ export default {
       const totalExpense = ref(0);
       const netProfit = ref(0);
       const entries = ref([]);
-      const currentMonth = ref(new Date().getMonth() + 1);
+      const currentMonth = ref();
 
       const fetchRecentEntries = async () => {
          try {

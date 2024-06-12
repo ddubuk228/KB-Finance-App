@@ -4,7 +4,7 @@
       <h1>KD</h1>
     </router-link>
 
-    <div><router-link to="/trnsc">거래 내역</router-link></div>
+    <div class="menu"><router-link to="/trnsc">거래 내역</router-link></div>
 
     <button class="settings-button" @click="openSettings">
       <router-link to="/profile" style="text-decoration: none; color: black; /"><i class="fas fa-cog"></i></router-link>
@@ -30,6 +30,10 @@ header {
   align-items: center;
   width: 500px;
   border-radius: 5px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  height: 80px;
 }
 
 .settings-button {
@@ -47,11 +51,16 @@ header {
 
 h1 {
   color: #474745;
+  margin: 0;
 }
 
 a {
   text-decoration: none;
   color: black;
   font-family: "MangoDdobak-B";
+}
+
+.menu a {
+  font-size: 20px;
 }
 </style>
