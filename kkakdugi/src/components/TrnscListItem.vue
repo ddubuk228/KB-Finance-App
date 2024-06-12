@@ -9,10 +9,10 @@
         </div>
         <div class="card-actions">
           <button @click="editEntry(entry.id)" class="btn btn-outline-warning">
-            수정
+            {{ t('edit') }}
           </button>
           <button @click="deleteEntry(entry.id)" class="btn btn-outline-warning">
-            삭제
+            {{ t('delete') }}
           </button>
         </div>
       </div>
@@ -25,6 +25,8 @@
   import { useEntriesStore } from "../store/entries";
   import { defineComponent, toRefs, ref } from "vue";
   import { useRouter } from "vue-router";
+  import { useI18n } from "vue-i18n";
+  import { ref, onMounted } from "vue";
   import MemoModal from "@/components/MemoModal.vue"; // 모달 컴포넌트 임포트
   
   export default defineComponent({
@@ -35,6 +37,24 @@
       const router = useRouter();
       const store = useEntriesStore();
       const { deleteEntry } = store;
+      const { t, locale } = useI18n();
+      const userInfo = ref({ language: 'ko' });
+
+      const fetchUserData = async () => {
+          try {
+            const user = await userStore.fetchUser();
+            if (user) {
+              userInfo.value = { ...user };
+            }
+          } catch (error) {
+            console.error('데이터를 가져오는 도중 에러 발생:', error);
+          }
+        };
+      onMounted(() => {
+        fetchUserData();
+        userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+        locale.value = userInfo.value.language ? 'en' : 'ko';
+      });
   
       const editEntry = (id) => {
         // 라우터를 사용하여 경로 이동 및 데이터 전달
@@ -53,6 +73,9 @@
         deleteEntry,
         showModal,
         toggleModal,
+        t,
+        locale,
+        userInfo,
       };
     },
     components: {
@@ -91,4 +114,3 @@
     gap: 10px;
   }
   </style>
-  

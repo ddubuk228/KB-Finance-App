@@ -5,38 +5,37 @@
    <div class="summary">
       <div class="total card">
          <div class="card-body">
-            {{ currentMonth }}월<br />
-            수입
+            {{ currentMonth }}{{ t('month') }}<br />
+            {{ t('income') }}
          </div>
          <div class="amount" style="color: greenyellow;">
-            {{ formatNumber(totalIncome) }}원
+            {{ formatNumber(totalIncome) }}{{ t('won') }}
          </div>
       </div>
       <div class="total card">
          <div class="card-body">
-            {{ currentMonth }}월<br />
-            지출
+            {{ currentMonth }}{{ t('month') }}<br />
+            {{ t('expense') }}
          </div>
          <div class="amount" style="color: red;">
-            {{ formatNumber(totalExpense) }}원
+            {{ formatNumber(totalExpense) }}{{ t('won') }}
          </div>
       </div>
       <div class="total card">
          <div class="card-body">
-            {{ currentMonth }}월<br />
-            순수익
+            {{ currentMonth }} {{ t('month') }}<br />
+            {{ t('netProfit') }}
          </div>
          <div class="amount" style="color: blue;">
-            {{ formatNumber(netProfit) }}원
+            {{ formatNumber(netProfit) }}{{ t('won') }}
          </div>
       </div>
    </div>
-
    <div class="container">
       <div class="btnbox">
          <button class="btnlist">
             <router-link to="/trnsc" style="text-decoration: none; color: black;">
-               + 거래 내역 목록</router-link></button>
+               {{ t('listTransaction') }}</router-link></button>
       </div>
       <div class="row">
          <div class="btnBox">
@@ -55,7 +54,6 @@
       <Chart />
    </div>
 </template>
-
 <script>
 import { useEntriesStore } from "../store/entries";
 import { ref, onMounted, watch } from 'vue';
@@ -63,9 +61,9 @@ import TrnscListItem from "@/components/TrnscListItem.vue";
 import Calendar from "@/pages/Calendar.vue"
 import axios from "axios";
 import Chart from './Chart.vue';
+import { useI18n } from "vue-i18n";
 
 export default {
-
    components: { TrnscListItem, Chart, Calendar },
    setup() {
       const store = useEntriesStore();
@@ -74,6 +72,24 @@ export default {
       const netProfit = ref(0);
       const entries = ref([]);
       const currentMonth = ref();
+      const { t, locale } = useI18n();
+      const userInfo = ref({ language: 'ko' });
+
+        const fetchUserData = async () => {
+            try {
+             const user = await userStore.fetchUser();
+             if (user) {
+             userInfo.value = { ...user };
+            }
+            } catch (error) {
+             console.error('데이터를 가져오는 도중 에러 발생:', error);
+            }
+        };
+            onMounted(() => {
+                fetchUserData();
+                userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+                 locale.value = userInfo.value.language ? 'en' : 'ko';
+         });
 
       const fetchRecentEntries = async () => {
          try {
@@ -89,16 +105,16 @@ export default {
       };
 
 
-      watch(
-         () => store.selectMonth,
-         async (newMonth) => {
-            currentMonth.value = newMonth
-            totalIncome.value = await store.getTotalIncome();
-            totalExpense.value = await store.getTotalExpense();
-            netProfit.value = (totalIncome.value - totalExpense.value);
+        watch(
+            () => store.selectMonth,
+            async (newMonth) => {
+                currentMonth.value = newMonth
+                totalIncome.value = await store.getTotalIncome();
+                totalExpense.value = await store.getTotalExpense();
+                netProfit.value = (totalIncome.value - totalExpense.value);
 
-         }
-      );
+            }
+        );
 
 
       onMounted(async () => {
@@ -117,6 +133,10 @@ export default {
          entries,
          currentMonth,
          formatNumber,
+         userTheme: localStorage.getItem('userTheme') === 'true',
+         t,
+         locale,
+         userInfo
       };
    }
 }
