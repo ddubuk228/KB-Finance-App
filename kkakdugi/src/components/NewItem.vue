@@ -1,7 +1,7 @@
 <template>
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title mb-0">거래 내역 추가</h3>
+        <h4 class="card-title mb-0">거래 내역 추가</h4>
       </div>
       <div class="card-body">
         <form @submit.prevent="submitForm">
@@ -18,14 +18,31 @@
           <div class="form-group">
             <label for="type">분류</label>
             <div class="d-flex">
-              <select class="form-control mr-2" id="category" v-model="newEntry.category" required>
+              <select
+                class="form-control mr-2"
+                id="category"
+                v-model="newEntry.category"
+                required
+              >
                 <option value="식비">식비</option>
                 <option value="교통비">교통비</option>
                 <option value="통신비">통신비</option>
                 <option value="기타">기타</option>
               </select>
-              <button type="button" class="btn btn-outline-warning" @click="newEntry.type = 'income'">수입</button>
-              <button type="button" class="btn btn-outline-warning" @click="newEntry.type = 'expense'">지출</button>
+              <button
+                type="button"
+                class="btn btn-outline-warning"
+                @click="newEntry.type = 'income'"
+              >
+                수입
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-warning"
+                @click="newEntry.type = 'expense'"
+              >
+                지출
+              </button>
             </div>
           </div>
           <div class="form-group">
@@ -34,7 +51,7 @@
               type="text"
               class="form-control"
               id="description"
-              v-model="newEntry.description"
+              v-model="newEntry.account"
               placeholder="거래내역을 입력하세요"
               required
             />
@@ -59,72 +76,80 @@
               v-model="newEntry.memo"
               placeholder="메모를 입력하세요"
             />
-          </div><br>
+          </div>
+          <br />
           <div class="button-group">
-            <button type="submit" class="btn btn-outline-warning" @click="submitForm">등록</button>
-            <button type="button" class="btn btn-outline-warning" @click="editEntry">수정</button>
+            <button type="submit" class="btn btn-outline-warning">등록</button>
+            <button type="button" class="btn btn-outline-warning" @click="submitForm">수정</button>
             <button type="button" class="btn btn-outline-warning" @click="cancelEntry">취소</button>
           </div>
         </form>
       </div>
     </div>
-    <div class="row mt-4">
-      <div class="col-12 text-center">
-        <router-link to="/" class="btn btn-secondary">메인 페이지로</router-link>
-      </div>
-    </div>
   </template>
   
   <script>
-  import axios from "axios";
-  import { useEntriesStore } from "../store/entries";
-
-  export default {
-    data() {
-      return {
-        newEntry: {
-          id: null,
-          type: 'expense',
-          category: '식비',
-          account: "",
-          amount: null,
-          memo: "",
-          date: "",
-        },
-      };
-    },
-    
-    methods: {
-        
-      async submitForm() {
-        try {
-          const response = await axios.post(
-            "http://localhost:3000/transaction",
-            this.newEntry
-          );
-          this.$router.push("/");
-        } catch (error) {
-          console.error("Error adding entry:", error);
-        }
+    import axios from "axios";
+    import { useEntriesStore } from "../store/entries";
+  
+    export default {
+      props: {
+        id: String,
       },
-      editEntry() {
-        // 수정 기능 로직을 여기에 추가
-        console.log("Edit entry", this.newEntry.id);
-      },
-      cancelEntry() {
-        // 입력된 내용 초기화
-        this.newEntry = {
-          id: null,
-          type: 'expense',
-          category: '식비',
-          account: "",
-          amount: null,
-          memo: "",
-          date: "",
+      data() {
+        return {
+          newEntry: {
+            id: null,
+            type: "expense",
+            category: "식비",
+            account: "",
+            amount: null,
+            memo: "",
+            date: "",
+          },
         };
       },
-    },
-  };
+      async created() {
+        if (this.id) {
+          const store = useEntriesStore();
+          const entry = await store.getEntryById(this.id);
+          if (entry) {
+            this.newEntry = { ...entry };
+          }
+        }
+      },
+      methods: {
+        async submitForm() {
+          const store = useEntriesStore();
+          try {
+            if (this.newEntry.id) {
+              await axios.put(`http://localhost:3000/transaction/${this.newEntry.id}`, this.newEntry);
+              console.log("Entry edited successfully");
+            } else {
+              const newId = await store.getNextId();
+              this.newEntry.id = newId;
+              await axios.post("http://localhost:3000/transaction", this.newEntry);
+              console.log("Entry added successfully");
+            }
+            this.$router.push("/trnsc");
+          } catch (error) {
+            console.error("Error submitting form:", error);
+          }
+        },
+        cancelEntry() {
+          this.newEntry = {
+            id: null,
+            type: "expense",
+            category: "식비",
+            account: "",
+            amount: null,
+            memo: "",
+            date: "",
+          };
+          this.$router.push("/trnsc");
+        },
+      },
+    };
   </script>
   
   <style scoped>
@@ -132,16 +157,23 @@
     margin-bottom: 20px;
     font-family: "MangoDdobak-B";
     font-size: 20px;
-    border-radius: 15px; /* 모서리를 둥글게 만듦 */
-    width: 400px;
+    border-radius: 15px;
+    margin-top: 50px;
+    border: 5px solid rgb(255, 232, 157);
+    font-family: "MangoDdobak-B";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px
+  }
+  .card-body {
+    width: 350px
   }
   label {
     padding: 7px;
   }
-  button {
-    width : 70px;
-  }
-  input, select {
+  input,
+  select {
     border: 2px solid rgb(243, 208, 91);
   }
   @font-face {
@@ -150,6 +182,10 @@
       format("woff2");
     font-weight: 700;
     font-style: normal;
+  }
+  button {
+    width: 70px;
+    margin-left: 10px;
   }
   </style>
   
