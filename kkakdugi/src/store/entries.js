@@ -7,36 +7,25 @@ export const useEntriesStore = defineStore('entries', {
     filteredEntries: [],
     selectedDate: '',
     selectedType: '',
-    selectedCategory: '',
-    totalIncome: 0,
-    totalExpense: 0,
-    selectMonth: "",
+    selectedCategory: ''
   }),
   actions: {
     async fetchEntries() {
       try {
-        const response = await axios.get('http://localhost:3000/transaction?_sort=-date');
+        const response = await axios.get('http://localhost:3000/transaction');
         this.entries = response.data;
         this.filterEntries();
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     },
-    async getEntryById(id) {
-        try {
-          const response = await axios.get(`http://localhost:3000/transaction/${id}`);
-          return response.data;
-        } catch (error) {
-          console.error('Error fetching entry by id:', error);
-        }
-      },
-    async getNextId() {
+    async test() {
         try {
           const response = await axios.get('http://localhost:3000/transaction');
           this.entries = response.data;
           let index = (this.entries.length) -1
           let id = parseInt(this.entries[index].id)
-          return String(id + 1)
+          return id + 1
           
         } catch (error) {
           console.error('Error fetching data:', error);
@@ -60,65 +49,6 @@ export const useEntriesStore = defineStore('entries', {
                (!this.selectedCategory || entry.category === this.selectedCategory);
       });
     },
-    setMonth(month) {
-      this.selectMonth = month;
-    },
-    async getTotalIncome() {
-      try {
-        const response = await axios.get(`http://localhost:3000/transaction?type=income`);
-        this.entries = response.data;
-        console.log(this.entries)
-        console.log("여기 " , this.selectMonth)
-
-        const result = this.entries.reduce((prev, cur)=>{
-          let month = parseInt(cur.date.substring(5,7))
-          if(month == this.selectMonth ) {
-            return prev += cur.amount;
-          } else {
-            return prev
-          }
-        }, 0)
-        console.log(result)
-        this.totalIncome = result;
-        return result
-
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async getTotalExpense() {
-      try {
-        const response = await axios.get(`http://localhost:3000/transaction?type=expense`);
-        this.entries = response.data;
-        console.log(this.entries)
-        
-        const result = this.entries.reduce((prev, cur)=>{
-          let month = parseInt(cur.date.substring(5,7))
-          if(month == this.selectMonth ) {
-            return prev += cur.amount;
-          } else {
-            return prev
-          }
-        }, 0)
-
-        console.log(result)
-        this.totalExpense = result
-        return result
-
-      } catch (error) {
-        console.error(error);
-      }
-    },
-    async recentEntries() {
-      try {
-        const response = await axios.get('http://localhost:3000/transaction?_sort=-date&&_limit=5&&type=expense');
-        this.entries = response.data;
-        console.log("Fetched recent entries:", this.entries);
-      } catch (error) {
-        console.error(error);
-      }
-    },
-
     setSelectedDate(date) {
       this.selectedDate = date;
       this.filterEntries();
