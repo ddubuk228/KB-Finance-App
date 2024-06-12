@@ -54,32 +54,6 @@
         <router-link to="/" class="btn btn-secondary">{{ t('mainPage') }}</router-link>
       </div>
     </div>
-  
-    <!-- 모달 템플릿 -->
-    <div
-      class="modal fade"
-      ref="emptyFieldModal"
-      :class="{ show: isModalOpen }"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="emptyFieldModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="emptyFieldModalLabel" style="font-weight: bold; color: red;">{{ t('warning') }}</h5>
-          </div>
-          <div class="modal-body">
-            {{ t('enterNameEmail') }}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" @click="closeModal">{{ t('close') }}</button>
-          </div>
-        </div>
-      </div>
-      <p v-if="isModalOpen">모달이 열렸습니다.</p>
-    </div>
   </template>
   
   <script>

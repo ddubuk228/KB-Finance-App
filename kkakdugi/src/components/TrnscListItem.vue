@@ -26,7 +26,7 @@
   import { defineComponent, toRefs, ref } from "vue";
   import { useRouter } from "vue-router";
   import { useI18n } from "vue-i18n";
-  import { ref, onMounted } from "vue";
+  import { onMounted } from "vue";
   import MemoModal from "@/components/MemoModal.vue"; // 모달 컴포넌트 임포트
   
   export default defineComponent({
