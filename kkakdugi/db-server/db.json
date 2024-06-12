@@ -11,13 +11,31 @@
   ],
   "transaction": [
     {
+      "id": "1",
+      "type": "expense",
+      "category": "식비",
+      "account": "간식",
+      "amount": 4000,
+      "memo": "",
+      "date": "2024-06-01"
+    },
+    {
+      "id": "2",
+      "type": "income",
+      "category": "식비",
+      "account": "간식",
+      "amount": 1000000,
+      "memo": "메모",
+      "date": "2024-06-11"
+    },
+    {
       "id": "3",
       "type": "expense",
       "category": "식비",
       "account": "간식",
       "amount": 6000,
       "memo": "",
-      "date": "2024-06-01"
+      "date": "2024-06-09"
     },
     {
       "id": "4",
@@ -76,7 +94,7 @@
     {
       "id": "10",
       "type": "income",
-      "category": "식비",
+      "category": "교통비",
       "account": "음식점",
       "amount": 60000,
       "memo": "",
@@ -170,7 +188,25 @@
       "account": "음식점",
       "amount": 90000,
       "memo": "",
-      "date": "2024-05-15"
+      "date": "2024-06-15"
+    },
+    {
+      "id": "21",
+      "type": "income",
+      "category": "기타",
+      "account": "음식점",
+      "amount": 10000,
+      "memo": "",
+      "date": "2024-06-05"
+    },
+    {
+      "id": "22",
+      "type": "income",
+      "category": "기타",
+      "account": "음식점",
+      "amount": 5000,
+      "memo": "",
+      "date": "2024-06-03"
     }
   ]
 }
