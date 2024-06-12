@@ -1,7 +1,7 @@
 <template>
     <div class="card">
-      <div class="card-header" >
-        <h4 class="card-title mb-0" >거래 내역 추가</h4>
+      <div class="card-header">
+        <h3 class="card-title mb-0">거래 내역 추가</h3>
       </div>
       <div class="card-body">
         <form @submit.prevent="submitForm">
@@ -76,34 +76,35 @@
   </template>
   
   <script>
-    import axios from "axios";
-    import { useEntriesStore } from "../store/entries";
-  
-    export default {
-      props: {
-        id: String,
-      },
-      data() {
-        return {
-          newEntry: {
-            id: null,
-            type: "expense",
-            category: "식비",
-            account: "",
-            amount: null,
-            memo: "",
-            date: "",
-          },
-          userTheme: localStorage.getItem('userTheme') === 'true',
-        };
-      },
-      async created() {
-        if (this.id) {
-          const store = useEntriesStore();
-          const entry = await store.getEntryById(this.id);
-          if (entry) {
-            this.newEntry = { ...entry };
-          }
+  import axios from "axios";
+  import { useEntriesStore } from "../store/entries";
+
+  export default {
+    data() {
+      return {
+        newEntry: {
+          id: null,
+          type: 'expense',
+          category: '식비',
+          account: "",
+          amount: null,
+          memo: "",
+          date: "",
+        },
+      };
+    },
+    
+    methods: {
+        
+      async submitForm() {
+        try {
+          const response = await axios.post(
+            "http://localhost:3000/transaction",
+            this.newEntry
+          );
+          this.$router.push("/");
+        } catch (error) {
+          console.error("Error adding entry:", error);
         }
       },
       editEntry() {
@@ -122,7 +123,8 @@
           date: "",
         };
       },
-    };
+    },
+  };
   </script>
   
   <style scoped>

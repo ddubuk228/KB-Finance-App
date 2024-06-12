@@ -176,7 +176,6 @@
     font-size: 20px;
     border-radius: 15px; 
     width: 400px;
-    border : 5px solid rgb(255, 232, 157);
   }
   
   .label {
@@ -201,15 +200,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 22px;
-    padding: 8px;
+    margin-top: 20px;
+    padding: 10px;
   }
   
   .switch-label {
     font-size: 13px; 
-    margin-left: 5px;
+    margin-left: 16px;
     flex-basis: 4%; 
-    white-space: nowrap;
   }
   
   .ios-switch {
@@ -217,7 +215,7 @@
     display: inline-block;
     width: 100px;
     height: 34px;
-    margin-left: 2px;
+    margin-left: 10px;
   }
   
   .ios-switch input {
@@ -229,7 +227,7 @@
   .ios-switch label {
     position: absolute;
     top: 0;
-    left: 6px;
+    left: 0;
     right: 0;
     bottom: 0;
     background-color: #ccc;
@@ -243,7 +241,7 @@
     content: "";
     height: 26px;
     width: 26px;
-    left: 12px;
+    left: 4px;
     bottom: 4px;
     background-color: white;
     border-radius: 50%;
@@ -262,6 +260,11 @@
     display: flex;
     margin-left: 145px;
     margin-top: 5px;
+  }
+  
+  .darkTheme {
+    background-color: #ee2424; 
+    color: #000000; 
   }
 
   .darkTheme .ios-switch label {
