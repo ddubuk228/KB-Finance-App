@@ -138,11 +138,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 400px
+  width: 450px
 }
 
 .card-body {
-  width: 350px
+  width: 400px
 }
 
 label {
@@ -167,6 +167,8 @@ button {
 }
 
 .wrap {
-  width: 460px;
+    width: 500px;
 }
+
+
 </style>
