@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="wrap">
     <Header />
     <div class="content-container">
       <router-view />
@@ -16,12 +16,13 @@
 </script>
 
 <style>
-#app {
+#wrap {
   background-color: #fff0c7; /* Set main background color */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100%;
   min-height: 100vh; 
 }
 

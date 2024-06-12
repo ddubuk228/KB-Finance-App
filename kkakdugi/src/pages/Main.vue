@@ -1,42 +1,55 @@
     <template>
-        <div class="wrap">
-            <div class="summary">
-                <div class="total card">
-                    <div class="card-body">
-                        {{ currentMonth }}월 수입<br />
-                        <span style="color: greenyellow;">{{ totalIncome }}</span>
-                    </div>
+
+        <div class="summary">
+            <div class="total card">
+                <div class="card-body">
+                    {{ currentMonth }}월<br />
+                    수입
                 </div>
-                <div class="total card">
-                    <div class="card-body">
-                        {{ currentMonth }}월 지출<br />
-                        <span style="color: red;">{{ totalExpense }}</span>
-                    </div>
-                </div>
-                <div class="total card">
-                    <div class="card-body">
-                        {{ currentMonth }}월 순수익<br />
-                        <span style="color: blue;">{{ netProfit }}</span>
-                    </div>
+                <div class="amount" style="color: greenyellow;">
+                    {{ formatNumber(totalIncome) }}원
                 </div>
             </div>
-
-            <div class="container">
-                <div class="btnbox">
-                    <button class="btnlist">
-                        <router-link to="/trnsc" style="text-decoration: none; color: black;">
-                            + 거래 내역 목록</router-link></button>
+            <div class="total card">
+                <div class="card-body">
+                    {{ currentMonth }}월<br />
+                    지출
                 </div>
-                <div class="row">
-                    <div class="col-12" v-for="(entry, index) in entries" :key="index">
-                        <div class="transaction-item">
-                            <TrnscListItem :entry="entry" />
-                        </div>
+                <div class="amount" style="color: red;">
+                    {{ formatNumber(totalExpense) }}원
+                </div>
+            </div>
+            <div class="total card">
+                <div class="card-body">
+                    {{ currentMonth }}월<br />
+                    순수익
+                </div>
+                <div class="amount" style="color: blue;">
+                    {{ formatNumber(netProfit) }}원
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="btnbox">
+                <button class="btnlist">
+                    <router-link to="/trnsc" style="text-decoration: none; color: black;">
+                        + 거래 내역 목록</router-link></button>
+            </div>
+            <div class="row">
+                <div class="col-12" v-for="(entry, index) in entries" :key="index">
+                    <div class="transaction-item">
+                        <TrnscListItem :entry="entry" />
                     </div>
                 </div>
             </div>
             <div>
                 <Chart />
+            </div>
+            <div class="btnBox">
+                <router-link to="/trnsc/add"><button class="addBtn">
+                        <i class="fa-solid fa-plus"></i>
+                    </button></router-link>
             </div>
         </div>
     </template>
@@ -68,13 +81,19 @@ export default {
             }
         };
 
+        const formatNumber = (number) => {
+            return number.toLocaleString('ko-KR');
+        };
+
+
         watch(
             () => store.selectMonth,
             async (newMonth) => {
                 currentMonth.value = newMonth
                 totalIncome.value = await store.getTotalIncome();
                 totalExpense.value = await store.getTotalExpense();
-                netProfit.value = totalIncome.value - totalExpense.value;
+                netProfit.value = (totalIncome.value - totalExpense.value);
+
             }
         );
 
@@ -94,6 +113,7 @@ export default {
             netProfit,
             entries,
             currentMonth,
+            formatNumber,
         };
     }
 }
@@ -108,27 +128,28 @@ export default {
 
 .summary {
     margin: 0 auto;
-    width: 500px;
+    width: 400px;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 160px);
+    grid-template-columns: repeat(3, 120px);
     justify-content: space-between;
 }
 
 .total {
     margin-top: 20px;
-    padding: 10px;
-    border: 1px solid rgb(171, 171, 171);
+    border: 5px solid rgb(255, 232, 157);
     height: 120px;
     text-align: center;
     border-radius: 0.375rem;
+    font-family: "MangoDdobak-B";
 }
 
 .card-body {
-    font-size: 19px;
+    font-size: 17px;
     font-weight: bold;
-    display: grid;
-    align-items: center;
+    flex: 0;
+    padding: 0;
+    margin-top: 15px;
 }
 
 .container {
@@ -153,5 +174,27 @@ export default {
     border: none;
     border-radius: 5px;
     background-color: inherit;
+}
+
+.amount {
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+
+.addBtn {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgb(255, 232, 157);
+    font-size: 25px;
+    line-height: 20px;
+}
+
+.btnBox {
+    position: fixed;
+    bottom: 0;
+    right: 32%;
+    height: 100px;
 }
 </style>

@@ -21,10 +21,10 @@
     },
     {
       "id": "2",
-      "type": "expense",
+      "type": "income",
       "category": "식비",
       "account": "간식",
-      "amount": 4998,
+      "amount": 1000000,
       "memo": "메모",
       "date": "2024-06-11"
     },
