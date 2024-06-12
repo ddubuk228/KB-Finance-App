@@ -23,6 +23,7 @@
   
   <script>
   import { useEntriesStore } from "../store/entries";
+  import { useUserStore } from '@/store/user';
   import { defineComponent, toRefs, ref } from "vue";
   import { useRouter } from "vue-router";
   import { useI18n } from "vue-i18n";
@@ -36,6 +37,7 @@
     setup(props) {
       const router = useRouter();
       const store = useEntriesStore();
+      const userStore = useUserStore();
       const { deleteEntry } = store;
       const { t, locale } = useI18n();
       const userInfo = ref({ language: 'ko' });

@@ -62,6 +62,7 @@ import Calendar from "@/pages/Calendar.vue"
 import axios from "axios";
 import Chart from './Chart.vue';
 import { useI18n } from "vue-i18n";
+import { useUserStore } from '@/store/user';
 
 export default {
    components: { TrnscListItem, Chart, Calendar },
@@ -74,6 +75,7 @@ export default {
       const currentMonth = ref();
       const { t, locale } = useI18n();
       const userInfo = ref({ language: 'ko' });
+      const userStore = useUserStore();
 
         const fetchUserData = async () => {
             try {
