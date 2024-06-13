@@ -161,7 +161,8 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 450px
+  width: 450px;
+  height: 630px;
 }
 
 .card-body {
@@ -190,7 +191,10 @@ button {
 }
 
 .wrap {
-    width: 500px;
+    width: 100%;
+    height: 670px;
+    display: flex;
+    align-items: center;
 }
 
 

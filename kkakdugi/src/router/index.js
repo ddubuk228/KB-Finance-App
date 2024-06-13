@@ -4,6 +4,7 @@ import Main from '@/pages/Main.vue'
 import TrnscListContainer from '@/components/TrnscListContainer.vue'
 import NewItem from '@/components/NewItem.vue'
 import Profile from '@/components/Profile.vue'
+import NotFound from '@/pages/NotFound.vue'
 
 
 const router = createRouter({
@@ -15,6 +16,7 @@ const router = createRouter({
         { path : '/profile', component : Profile},
         { path : '/trnsc', component : TrnscListContainer},
         { path : '/trnsc/:trnscId', component : NewItem},
+        { path : '/:path(.*)*', component : NotFound},
     ]
 })
 
