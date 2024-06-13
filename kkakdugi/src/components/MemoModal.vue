@@ -16,12 +16,14 @@
 </template>
 
 <script>
-  import { useI18n } from "vue-i18n";
-  import { ref, onMounted } from "vue";
+import { useUserStore } from '@/store/user';
+import { useI18n } from "vue-i18n";
+import { ref, onMounted } from "vue";
 export default {
   setup() {
       const { t, locale } = useI18n();
       const userInfo = ref({ language: 'ko' });
+      const userStore = useUserStore();
 
       const fetchUserData = async () => {
         try {
