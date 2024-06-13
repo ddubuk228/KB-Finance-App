@@ -40,16 +40,16 @@
           <div class="form-group">
             <label for="description">{{ t('history') }}</label>
             <input type="text" class="form-control" id="description" v-model="newEntry.account"
-              placeholder="거래내역을 입력하세요" required />
+            :placeholder="$t('enterTransaction')" required />
           </div>
           <div class="form-group">
             <label for="amount">{{ t('amount') }}</label>
-            <input type="number" class="form-control" id="amount" v-model="newEntry.amount" placeholder="금액을 입력하세요"
+            <input type="number" class="form-control" id="amount" v-model="newEntry.amount" :placeholder="$t('enterAmount')"
               required />
           </div>
           <div class="form-group">
             <label for="memo">{{ t('memo') }}</label>
-            <input type="text" class="form-control" id="memo" v-model="newEntry.memo" placeholder="메모를 입력하세요" />
+            <input type="text" class="form-control" id="memo" v-model="newEntry.memo" :placeholder="$t('enterMemo')" />
           </div>
           <br />
           <div class="button-group">
