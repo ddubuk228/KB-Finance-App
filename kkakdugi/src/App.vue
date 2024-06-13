@@ -23,7 +23,7 @@
 
 <style>
 #wrap {
-  background-color: #fff0c7; /* Set main background color */
+  background-color: #fff0c7; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,11 +32,11 @@
 }
 
 .content-container {
-  background-color: #ffffff; /* Card background color */
-  border-radius: 15px; /* Rounded corners */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  background-color: #ffffff; 
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   padding: 20px;
-  max-width: 500px; /* Max width for larger screens */
+  max-width: 500px; 
   margin-top: 100px;
 }
 

@@ -2,9 +2,10 @@
   <div class="modal" :class="{ 'is-active': show }">
     <div class="modal-background" @click="close"></div>
     <div class="modal-content">
-      <!-- 닫기 버튼 -->
       <button class="modal-close is-large" aria-label="close" @click="close">Close</button>
       <div class="box">
+        <!-- 모달창 내역 (날짜,거래 내역,거래 금액, 메모)-->
+         <!--TrnscListItem에서 넘겨준 데이터를 받아옴-->
         <p><strong>{{ t('summaryTransaction') }}</strong></p>
           <p>{{ t('dateTransaction') }}: {{ transactionDate }}</p>
           <p>{{ t('history') }}: {{ transactionDetails }}</p>
@@ -83,23 +84,17 @@ export default {
   width: 300px;
   height: 450px;
   position: relative;
-  /* 닫기 버튼 정렬을 위해 position 설정 */
 }
 
 .modal-close {
   position: absolute;
-  /* 닫기 버튼을 콘텐츠에 상대적으로 배치 */
   top: 10px;
-  /* 위쪽 여백 조절 */
   right: 10px;
-  /* 우측 여백 조절 */
   background: transparent;
   border: none;
   cursor: pointer;
   width: 60px;
-  /* 닫기 버튼의 크기 설정 */
   height: 40px;
-  /* 닫기 버튼의 크기 설정 */
 }
 
 strong {
