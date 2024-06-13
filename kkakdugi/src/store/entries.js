@@ -68,7 +68,6 @@ export const useEntriesStore = defineStore('entries', {
         const response = await axios.get(`http://localhost:3000/transaction?type=income`);
         this.entries = response.data;
         console.log(this.entries)
-        console.log("여기 " , this.selectMonth)
 
         const result = this.entries.reduce((prev, cur)=>{
           let month = parseInt(cur.date.substring(5,7))

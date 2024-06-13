@@ -5,8 +5,8 @@
       "name": "깍두기",
       "email": "abc@gamil.com",
       "notification": true,
-      "language": true,
-      "theme": true,
+      "language": false,
+      "theme": false,
       "maxBudget": "10000"
     }
   ],

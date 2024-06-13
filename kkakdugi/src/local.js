@@ -35,7 +35,7 @@ const messages = {
       listTransaction: '거래 내역 목록',
       previous: '이전',
       next: '다음',
-  
+      error: '잘못된 주소입니다.'
     
 
     },
@@ -75,7 +75,7 @@ const messages = {
       listTransaction: '+ List of Transactions',
       previous: 'Prev',
       next: 'Next',
-
+      error: '404',
 
 
     },

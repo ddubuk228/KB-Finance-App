@@ -1,59 +1,60 @@
-    <template>
-
-        <div class="summary">
-            <div class="total card">
-                <div class="card-body">
-                    {{ currentMonth }}월<br />
-                    수입
-                </div>
-                <div class="amount" style="color: greenyellow;">
-                    {{ formatNumber(totalIncome) }}원
-                </div>
+<template>
+   <div class="calendar-box">
+      <Calendar />
+   </div>
+   <div class="summary">
+      <div class="total card">
+         <div class="card-body">
+            {{ currentMonth }}{{ t('month') }}<br />
+            {{ t('income') }}
+         </div>
+         <div class="amount" style="color: greenyellow;">
+            {{ formatNumber(totalIncome) }}{{ t('won') }}
+         </div>
+      </div>
+      <div class="total card">
+         <div class="card-body">
+            {{ currentMonth }}{{ t('month') }}<br />
+            {{ t('expense') }}
+         </div>
+         <div class="amount" style="color: red;">
+            {{ formatNumber(totalExpense) }}{{ t('won') }}
+         </div>
+      </div>
+      <div class="total card">
+         <div class="card-body">
+            {{ currentMonth }} {{ t('month') }}<br />
+            {{ t('netProfit') }}
+         </div>
+         <div class="amount" style="color: blue;">
+            {{ formatNumber(netProfit) }}{{ t('won') }}
+         </div>
+      </div>
+   </div>
+   <div class="container">
+      <div class="btnbox">
+         <button class="btnlist">
+            <router-link to="/trnsc" 
+               :style="{ color: userTheme ? 'white' : 'black', 'text-decoration': 'none' }">
+               {{ t('listTransaction') }}</router-link></button>
+      </div>
+      <div class="row">
+         <div class="btnBox">
+            <router-link to="/trnsc/add"><button class="addBtn">
+                  <i class="fa-solid fa-plus"></i>
+               </button></router-link>
+         </div>
+         <div class="col-12" v-for="(entry, index) in entries" :key="index">
+            <div class="transaction-item">
+               <TrnscListItem :entry="entry" />
             </div>
-            <div class="total card">
-                <div class="card-body">
-                    {{ currentMonth }}월<br />
-                    지출
-                </div>
-                <div class="amount" style="color: red;">
-                    {{ formatNumber(totalExpense) }}원
-                </div>
-            </div>
-            <div class="total card">
-                <div class="card-body">
-                    {{ currentMonth }}월<br />
-                    순수익
-                </div>
-                <div class="amount" style="color: blue;">
-                    {{ formatNumber(netProfit) }}원
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="btnbox">
-                <button class="btnlist">
-                    <router-link to="/trnsc" :style="{ color: userTheme ? 'white' : 'black', 'text-decoration': 'none' }">
-                            + 거래 내역 목록</router-link></button>
-            </div>
-            <div class="row">
-                <div class="col-12" v-for="(entry, index) in entries" :key="index">
-                    <div class="transaction-item">
-                        <TrnscListItem :entry="entry" />
-                    </div>
-                </div>
-            </div>
-            <div class="btnBox">
-                <router-link to="/trnsc/add"><button class="addBtn">
-                        <i class="fa-solid fa-plus"></i>
-                    </button></router-link>
-            </div>
-        </div>
-        <div>
-            <Chart />
-        </div>
-    </template>
-
+         </div>
+      </div>
+   </div>
+   <div>
+      <Chart />
+   </div>
+</template>
 <script>
 import { useEntriesStore } from "../store/entries";
 import { ref, onMounted, watch } from 'vue';
@@ -77,21 +78,21 @@ export default {
       const userInfo = ref({ language: 'ko' });
       const userStore = useUserStore();
 
-        const fetchUserData = async () => {
-            try {
-             const user = await userStore.fetchUser();
-             if (user) {
-             userInfo.value = { ...user };
+      const fetchUserData = async () => {
+         try {
+            const user = await userStore.fetchUser();
+            if (user) {
+               userInfo.value = { ...user };
             }
-            } catch (error) {
-             console.error('데이터를 가져오는 도중 에러 발생:', error);
-            }
-        };
-            onMounted(() => {
-                fetchUserData();
-                userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
-                 locale.value = userInfo.value.language ? 'en' : 'ko';
-         });
+         } catch (error) {
+            console.error('데이터를 가져오는 도중 에러 발생:', error);
+         }
+      };
+      onMounted(() => {
+         fetchUserData();
+         userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+         locale.value = userInfo.value.language ? 'en' : 'ko';
+      });
 
       const fetchRecentEntries = async () => {
          try {
@@ -107,16 +108,15 @@ export default {
       };
 
 
-        watch(
-            () => store.selectMonth,
-            async (newMonth) => {
-                currentMonth.value = newMonth
-                totalIncome.value = await store.getTotalIncome();
-                totalExpense.value = await store.getTotalExpense();
-                netProfit.value = (totalIncome.value - totalExpense.value);
-
-            }
-        );
+      watch(
+         () => store.selectMonth,
+         async (newMonth) => {
+            currentMonth.value = newMonth
+            totalIncome.value = await store.getTotalIncome();
+            totalExpense.value = await store.getTotalExpense();
+            netProfit.value = (totalIncome.value - totalExpense.value);
+         }
+      );
 
 
       onMounted(async () => {
@@ -126,6 +126,7 @@ export default {
          totalIncome.value = await store.getTotalIncome();
          totalExpense.value = await store.getTotalExpense();
          netProfit.value = totalIncome.value - totalExpense.value;
+         currentMonth.value = store.selectMonth
       });
 
       return {
@@ -227,4 +228,5 @@ export default {
 .calendar-box {
    text-align: center
 }
+
 </style>
