@@ -1,17 +1,11 @@
 <template>
   <header>
-    <router-link to="/" style="text-decoration: none; "><h1>KD</h1></router-link>
-    <div id="calendar" class="calendar">
-      <div class="dropdown">
-        <div class="dropdown-selected" @click="toggleDropdown">{{ months[selectMonth - 1] }}월</div>
-        <div class="dropdown-options" v-if="dropdownOpen">
-          <div class="dropdown-option" v-for="(month, index) in months" :key="index"
-            @click.stop="selectOption(index + 1)">
-            {{ month }}월
-          </div>
-        </div>
-      </div>
-    </div>
+    <router-link to="/" style="text-decoration: none; ">
+      <h1>KD</h1>
+    </router-link>
+
+    <div class="menu"><router-link to="/trnsc">{{ t('history') }}</router-link></div>
+
     <button class="settings-button" @click="openSettings">
       <router-link to="/profile" style="text-decoration: none; color: black; /"><i class="fas fa-cog"></i></router-link>
     </button>
@@ -19,51 +13,39 @@
 </template>
 
 <script>
-import { useEntriesStore } from "../store/entries"; // Store import
-import { ref, onMounted, watch } from "vue";
-
+import { useUserStore } from '@/store/user';
+import { ref, onMounted } from 'vue';
+import { useI18n } from "vue-i18n";
 export default {
   setup() {
-    const store = useEntriesStore(); // Store instance
-    const currentMonth = new Date().getMonth() + 1; // Get current month
-    const selectMonth = ref(currentMonth); // Reactive variable for selected month
-    const dropdownOpen = ref(false); // Reactive variable for dropdown state
-    const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+    const { t, locale } = useI18n();
+    const userInfo = ref({ language: 'ko' });
+    const userStore = useUserStore();
 
-    // Toggle dropdown visibility
-    const toggleDropdown = () => {
-      dropdownOpen.value = !dropdownOpen.value;
+    const fetchUserData = async () => {
+      try {
+        const user = await userStore.fetchUser();
+        if (user) {
+          userInfo.value = { ...user };
+        }
+      } catch (error) {
+        console.error('데이터를 가져오는 도중 에러 발생:', error);
+      }
     };
-
-    // Select a month and close dropdown
-    const selectOption = (month) => {
-      selectMonth.value = month;
-      dropdownOpen.value = false;
-    };
-
-    // Watch for changes in selected month and update the store
-    watch(selectMonth, (newMonth) => {
-      store.setMonth(newMonth);
-    });
-
-    // Initialize selected month in the store
     onMounted(() => {
-      store.setMonth(currentMonth);
+      fetchUserData();
+      userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+      locale.value = userInfo.value.language ? 'en' : 'ko';
     });
-
-    // Method for handling settings button click
-    const openSettings = () => {
-      console.log("Settings button clicked");
-    };
 
     return {
-      selectMonth,
-      dropdownOpen,
-      months,
-      toggleDropdown,
-      selectOption,
-      openSettings
+      userTheme: localStorage.getItem('userTheme') === 'true',
+      t,
+      locale,
+      userInfo
     };
+
+
   },
 };
 </script>
@@ -78,6 +60,10 @@ header {
   align-items: center;
   width: 500px;
   border-radius: 5px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  height: 80px;
 }
 
 .settings-button {
@@ -93,56 +79,18 @@ header {
   opacity: 0.8;
 }
 
-.calendar {
-  border-radius: 10px;
-  /* overflow: hidden;  Removed this line */
-}
-
-.dropdown {
-  position: relative;
-  display: inline-block;
-  width: 100px;
-}
-
-.dropdown-selected {
-  padding: 10px;
-  cursor: pointer;
-  background-color: #fff;
-  text-align: center;
-  border-radius: 0.375rem;
-  background-color: rgb(255, 232, 157);
-  font-family: "MangoDdobak-B";
-}
-
-.dropdown-options {
-  display: grid;
-  grid-template-columns: repeat(3, 60px);
-  border: 1px solid #ccc;
-  position: absolute;
-  width: 185px;
-  background-color: white;
-  z-index: 1000;
-  border-radius: 0.375rem;
-  background-color: #fff;
-  /* Set background color */
-  padding: 1px;
-  font-family: "MangoDdobak-B";
-}
-
-.dropdown-option {
-  padding: 10px;
-  cursor: pointer;
-  text-align: center;
-  background-color: #fff;
-  /* Set background color */
-  padding: 5px 10px;
-}
-
-.dropdown-option:hover {
-  background-color: #f1f1f1;
-}
-
 h1 {
   color: #474745;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  font-family: "MangoDdobak-B";
+}
+
+.menu a {
+  font-size: 20px;
 }
 </style>

@@ -17,13 +17,13 @@
       <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center mt-4">
           <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
-            <button class="page-link" @click="prevPage">이전</button>
+            <button class="page-link" @click="prevPage">{{ t('previous') }}</button>
           </li>
           <li class="page-item" v-for="page in totalPages" :key="page" :class="{ 'active': page === currentPage }">
             <button class="page-link" @click="goToPage(page)">{{ page }}</button>
           </li>
           <li class="page-item" :class="{ 'disabled': currentPage === totalPages }">
-            <button class="page-link" @click="nextPage">다음</button>
+            <button class="page-link" @click="nextPage">{{ t('next') }}</button>
           </li>
         </ul>
       </nav>
@@ -32,8 +32,9 @@
   
   <script>
   import { useEntriesStore } from "../store/entries";
-  import { computed, ref } from "vue";
+  import { computed, ref, onMounted } from "vue";
   import TrnscListItem from "./TrnscListItem.vue";
+  import { useI18n } from "vue-i18n";
   
   export default {
     name: "TrnscList",
@@ -42,6 +43,26 @@
     },
     setup() {
       const store = useEntriesStore();
+
+      const { t, locale } = useI18n();
+    const userInfo = ref({ language: 'ko' });
+
+    const fetchUserData = async () => {
+        try {
+          const user = await userStore.fetchUser();
+          if (user) {
+            userInfo.value = { ...user };
+          }
+        } catch (error) {
+          console.error('데이터를 가져오는 도중 에러 발생:', error);
+        }
+      };
+    onMounted(() => {
+      fetchUserData();
+      userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+      locale.value = userInfo.value.language ? 'en' : 'ko';
+    });
+
   
       const selectedDate = computed({
         get: () => store.selectedDate,
@@ -111,6 +132,9 @@
         goToPage,
         editEntry,
         deleteEntry,
+        t,
+        locale,
+        userInfo,
       };
     },
   };
