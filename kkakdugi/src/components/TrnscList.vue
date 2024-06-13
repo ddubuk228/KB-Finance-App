@@ -45,7 +45,7 @@
       const store = useEntriesStore();
 
       const { t, locale } = useI18n();
-    const userInfo = ref({ language: 'ko' });
+      const userInfo = ref({ language: 'ko' });
 
     const fetchUserData = async () => {
         try {

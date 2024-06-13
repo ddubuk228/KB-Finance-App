@@ -40,9 +40,8 @@ const messages = {
       listTransaction: '거래 내역 목록',
       previous: '이전',
       next: '다음',
-  
-    
-
+      summaryTransaction: '거래 내역 요약',
+      dateTransaction: '거래 날짜',
     },
     en: {
       profile: 'Profile',
@@ -85,9 +84,8 @@ const messages = {
       listTransaction: '+ List of Transactions',
       previous: 'Prev',
       next: 'Next',
-
-
-
+      summaryTransaction: 'Summary of Transactions',
+      dateTransaction: 'Transaction Date',
     },
   };
   
