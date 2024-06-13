@@ -1,5 +1,6 @@
-const messages = {
-    ko: {
+// 번역할 언어 데이터 정의
+const messages = { 
+    ko: { // 한국어
       profile: '프로필',
       name: '이름',
       email: '이메일',
@@ -46,7 +47,7 @@ const messages = {
       monthlyExpense: '월별 지출',
     
     },
-    en: {
+    en: { // 영어
       profile: 'Profile',
       name: 'Name',
       email: 'Email',
