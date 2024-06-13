@@ -43,14 +43,14 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <Chart />
-            </div>
             <div class="btnBox">
                 <router-link to="/trnsc/add"><button class="addBtn">
                         <i class="fa-solid fa-plus"></i>
                     </button></router-link>
             </div>
+        </div>
+        <div>
+            <Chart />
         </div>
     </template>
 
