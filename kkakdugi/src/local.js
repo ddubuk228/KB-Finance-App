@@ -42,6 +42,7 @@ const messages = {
       next: '다음',
       summaryTransaction: '거래 내역 요약',
       dateTransaction: '거래 날짜',
+      error: '잘못된 주소입니다.'
     },
     en: {
       profile: 'Profile',
@@ -86,6 +87,7 @@ const messages = {
       next: 'Next',
       summaryTransaction: 'Summary of Transactions',
       dateTransaction: 'Transaction Date',
+      error: '404',
     },
   };
   

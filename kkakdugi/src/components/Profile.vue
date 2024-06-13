@@ -156,7 +156,7 @@
     font-family: "MangoDdobak-B";
     font-size: 20px;
     border-radius: 15px; 
-    width: 400px;
+    width: 460px;
     border : 5px solid rgb(255, 232, 157);
   }
   

@@ -34,7 +34,8 @@
    <div class="container">
       <div class="btnbox">
          <button class="btnlist">
-            <router-link to="/trnsc" style="text-decoration: none; color: black;">
+            <router-link to="/trnsc" 
+               :style="{ color: userTheme ? 'white' : 'black', 'text-decoration': 'none' }">
                {{ t('listTransaction') }}</router-link></button>
       </div>
       <div class="row">
@@ -77,21 +78,21 @@ export default {
       const userInfo = ref({ language: 'ko' });
       const userStore = useUserStore();
 
-        const fetchUserData = async () => {
-            try {
-             const user = await userStore.fetchUser();
-             if (user) {
-             userInfo.value = { ...user };
+      const fetchUserData = async () => {
+         try {
+            const user = await userStore.fetchUser();
+            if (user) {
+               userInfo.value = { ...user };
             }
-            } catch (error) {
-             console.error('데이터를 가져오는 도중 에러 발생:', error);
-            }
-        };
-            onMounted(() => {
-                fetchUserData();
-                userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
-                 locale.value = userInfo.value.language ? 'en' : 'ko';
-         });
+         } catch (error) {
+            console.error('데이터를 가져오는 도중 에러 발생:', error);
+         }
+      };
+      onMounted(() => {
+         fetchUserData();
+         userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+         locale.value = userInfo.value.language ? 'en' : 'ko';
+      });
 
       const fetchRecentEntries = async () => {
          try {
@@ -107,16 +108,15 @@ export default {
       };
 
 
-        watch(
-            () => store.selectMonth,
-            async (newMonth) => {
-                currentMonth.value = newMonth
-                totalIncome.value = await store.getTotalIncome();
-                totalExpense.value = await store.getTotalExpense();
-                netProfit.value = (totalIncome.value - totalExpense.value);
-
-            }
-        );
+      watch(
+         () => store.selectMonth,
+         async (newMonth) => {
+            currentMonth.value = newMonth
+            totalIncome.value = await store.getTotalIncome();
+            totalExpense.value = await store.getTotalExpense();
+            netProfit.value = (totalIncome.value - totalExpense.value);
+         }
+      );
 
 
       onMounted(async () => {
@@ -126,6 +126,7 @@ export default {
          totalIncome.value = await store.getTotalIncome();
          totalExpense.value = await store.getTotalExpense();
          netProfit.value = totalIncome.value - totalExpense.value;
+         currentMonth.value = store.selectMonth
       });
 
       return {
@@ -227,4 +228,5 @@ export default {
 .calendar-box {
    text-align: center
 }
+
 </style>

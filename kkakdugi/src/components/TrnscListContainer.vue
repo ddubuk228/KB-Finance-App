@@ -46,6 +46,7 @@ import { useEntriesStore } from "../store/entries";
 import { computed, ref, onMounted } from "vue";
 import TrnscList from "./TrnscList.vue";
 import { useI18n } from "vue-i18n";
+import { useUserStore } from '@/store/user';
 
 export default {
   name: "TrnscListContainer",
@@ -56,6 +57,7 @@ export default {
     const store = useEntriesStore();
     const { t, locale } = useI18n();
     const userInfo = ref({ language: 'ko' });
+    const userStore = useUserStore();
 
     const fetchUserData = async () => {
         try {
