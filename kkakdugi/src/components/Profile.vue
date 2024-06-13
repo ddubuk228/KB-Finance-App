@@ -8,7 +8,7 @@
       <div class="card-body">
         <form @submit.prevent="submitForm">
           <div class="form-group">
-            <img src="../../public/assets/profile.png" alt="프로필 이미지" class="profile-img" width="150" />
+            <img src="../../public/assets/profile.png" alt="프로필 이미지" class="profile-img" width="150"  />
           </div>
           <div class="form-group">
             <label for="name">{{ t('name') }}</label>
@@ -175,7 +175,7 @@
   
   .profile-img {
     border-radius: 50%;
-    margin-left: 100px;
+    margin-left: 135px;
   }
   
   .switch-group {
@@ -224,7 +224,7 @@
     content: "";
     height: 26px;
     width: 26px;
-    left: 12px;
+    left: 17px;
     bottom: 4px;
     background-color: white;
     border-radius: 50%;
@@ -241,7 +241,7 @@
   
   .button-group {
     display: flex;
-    margin-left: 145px;
+    margin-left: 180px;
     margin-top: 5px;
   }
 

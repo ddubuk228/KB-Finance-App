@@ -43,10 +43,8 @@ const messages = {
       summaryTransaction: '거래 내역 요약',
       dateTransaction: '거래 날짜',
       error: '잘못된 주소입니다.',
-      months: [
-        '1월', '2월', '3월', '4월', '5월', '6월',
-        '7월', '8월', '9월', '10월', '11월', '12월'
-      ],
+      monthlyExpense: '월별 지출',
+    
     },
     en: {
       profile: 'Profile',
@@ -92,10 +90,7 @@ const messages = {
       summaryTransaction: 'Summary of Transactions',
       dateTransaction: 'Transaction Date',
       error: '404',
-      months: [
-        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
-      ],
+      monthlyExpense: 'Monthly Expense',
     },
   };
   

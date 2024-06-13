@@ -1,5 +1,5 @@
 <template>
-   <div class="title">월별 지출</div>
+   <div class="title">{{ t('monthlyExpense') }}</div>
    <div class="chart-container">
       <div class="chart">
          <div v-for="(monthData, index) in monthlyData" :key="index" class="chart-bar"
@@ -22,6 +22,9 @@
 import { ref, reactive, onMounted } from 'vue';
 import { useEntriesStore } from '../store/entries';
 import axios from 'axios';
+import { useI18n } from "vue-i18n";
+import { useUserStore } from '@/store/user';
+
 export default {
    name: "Chart",
    setup() {
@@ -33,6 +36,25 @@ export default {
       const tooltipTop = ref(0);
       const tooltipLeft = ref(0);
       const maxBudget = ref(0);
+      const { t, locale } = useI18n();
+      const userInfo = ref({ language: 'ko' });
+      const userStore = useUserStore();
+
+    const fetchUserData = async () => {
+        try {
+          const user = await userStore.fetchUser();
+          if (user) {
+            userInfo.value = { ...user };
+          }
+        } catch (error) {
+          console.error('데이터를 가져오는 도중 에러 발생:', error);
+        }
+      };
+    onMounted(() => {
+      fetchUserData();
+      userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+      locale.value = userInfo.value.language ? 'en' : 'ko';
+    });
 
       const fetchEntries = async () => {
          try {
@@ -65,8 +87,8 @@ export default {
 
       const getMonthName = (monthNumber) => {
          const monthNames = [
-            "1월", "2월", "3월", "4월", "5월", "6월",
-            "7월", "8월", "9월", "10월", "11월", "12월"
+            "1", "2", "3", "4", "5", "6",
+            "7", "8", "9", "10", "11", "12"
          ];
          return monthNames[monthNumber - 1];
       };
@@ -127,6 +149,9 @@ export default {
          tooltipTop,
          tooltipLeft,
          getBarClass,
+         t,
+         locale,
+         userInfo,
       };
    }
 };
