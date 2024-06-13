@@ -1,59 +1,59 @@
-<template>
-   <div class="calendar-box">
-      <Calendar />
-   </div>
-   <div class="summary">
-      <div class="total card">
-         <div class="card-body">
-            {{ currentMonth }}{{ t('month') }}<br />
-            {{ t('income') }}
-         </div>
-         <div class="amount" style="color: greenyellow;">
-            {{ formatNumber(totalIncome) }}{{ t('won') }}
-         </div>
-      </div>
-      <div class="total card">
-         <div class="card-body">
-            {{ currentMonth }}{{ t('month') }}<br />
-            {{ t('expense') }}
-         </div>
-         <div class="amount" style="color: red;">
-            {{ formatNumber(totalExpense) }}{{ t('won') }}
-         </div>
-      </div>
-      <div class="total card">
-         <div class="card-body">
-            {{ currentMonth }} {{ t('month') }}<br />
-            {{ t('netProfit') }}
-         </div>
-         <div class="amount" style="color: blue;">
-            {{ formatNumber(netProfit) }}{{ t('won') }}
-         </div>
-      </div>
-   </div>
-   <div class="container">
-      <div class="btnbox">
-         <button class="btnlist">
-            <router-link to="/trnsc" style="text-decoration: none; color: black;">
-               {{ t('listTransaction') }}</router-link></button>
-      </div>
-      <div class="row">
-         <div class="btnBox">
-            <router-link to="/trnsc/add"><button class="addBtn">
-                  <i class="fa-solid fa-plus"></i>
-               </button></router-link>
-         </div>
-         <div class="col-12" v-for="(entry, index) in entries" :key="index">
-            <div class="transaction-item">
-               <TrnscListItem :entry="entry" />
+    <template>
+
+        <div class="summary">
+            <div class="total card">
+                <div class="card-body">
+                    {{ currentMonth }}월<br />
+                    수입
+                </div>
+                <div class="amount" style="color: greenyellow;">
+                    {{ formatNumber(totalIncome) }}원
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
-   <div>
-      <Chart />
-   </div>
-</template>
+            <div class="total card">
+                <div class="card-body">
+                    {{ currentMonth }}월<br />
+                    지출
+                </div>
+                <div class="amount" style="color: red;">
+                    {{ formatNumber(totalExpense) }}원
+                </div>
+            </div>
+            <div class="total card">
+                <div class="card-body">
+                    {{ currentMonth }}월<br />
+                    순수익
+                </div>
+                <div class="amount" style="color: blue;">
+                    {{ formatNumber(netProfit) }}원
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="btnbox">
+                <button class="btnlist">
+                    <router-link to="/trnsc" :style="{ color: userTheme ? 'white' : 'black', 'text-decoration': 'none' }">
+                            + 거래 내역 목록</router-link></button>
+            </div>
+            <div class="row">
+                <div class="col-12" v-for="(entry, index) in entries" :key="index">
+                    <div class="transaction-item">
+                        <TrnscListItem :entry="entry" />
+                    </div>
+                </div>
+            </div>
+            <div class="btnBox">
+                <router-link to="/trnsc/add"><button class="addBtn">
+                        <i class="fa-solid fa-plus"></i>
+                    </button></router-link>
+            </div>
+        </div>
+        <div>
+            <Chart />
+        </div>
+    </template>
+
 <script>
 import { useEntriesStore } from "../store/entries";
 import { ref, onMounted, watch } from 'vue';
