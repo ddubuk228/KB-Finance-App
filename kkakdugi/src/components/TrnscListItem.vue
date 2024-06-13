@@ -3,6 +3,7 @@
       <div class="card-header">
         <small class="text-muted">{{ entry.date }}</small>
       </div>
+      <!-- 각각의 거래 내역 카드 -->
       <div class="card-body d-flex justify-content-between align-items-center">
         <div class="card-item" @click="toggleModal">
           {{ entry.account }} {{ entry.amount }}원
@@ -89,8 +90,8 @@
   
   <style scoped>
   .card {
-    width: 400px; /* 고정된 카드 너비 */
-    margin-bottom: 20px; /* 카드 간 간격 조절 */
+    width: 400px; 
+    margin-bottom: 20px; 
     border: 5px solid rgb(255, 232, 157);
   }
   .card-header {
