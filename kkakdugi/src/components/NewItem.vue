@@ -68,10 +68,13 @@ import axios from "axios";
 import { useEntriesStore } from "../store/entries";
 import { useI18n } from "vue-i18n";
 import { onMounted, ref } from "vue";
+import { useUserStore } from '@/store/user';
+
 export default {
   setup() {
     const { t, locale } = useI18n();
     const userInfo = ref({ language: 'ko' });
+    const userStore = useUserStore();
 
     const fetchUserData = async () => {
         try {

@@ -7,7 +7,7 @@
       "notification": true,
       "language": false,
       "theme": false,
-      "maxBudget": "10000"
+      "maxBudget": "30000"
     }
   ],
   "transaction": [
