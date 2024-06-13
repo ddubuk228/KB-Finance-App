@@ -51,7 +51,7 @@
          </div>
       </div>
    </div>
-   <div>
+   <div class="chartBox">
       <Chart />
    </div>
 </template>
@@ -227,6 +227,13 @@ export default {
 
 .calendar-box {
    text-align: center
+}
+
+.chartBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 </style>
