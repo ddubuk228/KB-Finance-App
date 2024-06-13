@@ -1,5 +1,5 @@
 <template>
-  <div class="container"> 
+  <div class="container">
     <div class="row">
       <div class="col-12">
         <!-- 거래 내역 리스트 -->
@@ -12,15 +12,16 @@
       </div>
     </div>
     <!-- 페이지네이션 -->
-    <nav aria-label="Page navigation"> 
+    <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center mt-4">
         <!-- 이전 페이지 버튼 -->
         <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
           <button class="page-link" @click="prevPage">{{ t('previous') }}</button>
         </li>
         <!-- 페이지 번호 버튼 -->
-        <li class="page-item" v-for="page in totalPages" :key="page" :class="{ 'active': page === currentPage }">
-          <button class="page-link" @click="goToPage(page)">{{ page }}</button>
+        <li class="page-item" v-for="page in visiblePages" :key="page" :class="{ 'active': page === currentPage }">
+          <button v-if="page !== '...'" class="page-link" @click="goToPage(page)">{{ page }}</button>
+          <span v-else class="page-link">...</span>
         </li>
         <!-- 다음 페이지 버튼 -->
         <li class="page-item" :class="{ 'disabled': currentPage === totalPages }">
@@ -99,6 +100,24 @@ export default {
       return filteredEntries.value.slice(startIndex, endIndex);
     });
 
+    const visiblePages = computed(() => {
+      const pages = [];
+      if (totalPages.value <= 5) {
+        for (let i = 1; i <= totalPages.value; i++) {
+          pages.push(i);
+        }
+      } else {
+        if (currentPage.value <= 3) {
+          pages.push(1, 2, 3, 4, totalPages.value);
+        } else if (currentPage.value >= totalPages.value - 2) {
+          pages.push(1, totalPages.value - 3, totalPages.value - 2, totalPages.value - 1, totalPages.value);
+        } else {
+          pages.push(1,  currentPage.value - 1, currentPage.value, currentPage.value + 1, totalPages.value);
+        }
+      }
+      return pages;
+    });
+
     // 이전 페이지 이동
     const prevPage = () => {
       if (currentPage.value > 1) {
@@ -115,7 +134,9 @@ export default {
 
     // 특정 페이지로 이동
     const goToPage = (page) => {
-      currentPage.value = page;
+      if (page !== '...') {
+        currentPage.value = page;
+      }
     };
 
     // 거래 내역 편집
@@ -144,6 +165,7 @@ export default {
       goToPage,
       editEntry,
       deleteEntry,
+      visiblePages,
       t,
       locale,
       userInfo,
