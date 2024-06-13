@@ -122,7 +122,7 @@ export default {
       const updatePosition = (event, monthIndex) => {
          const totalExpense = getMonthTotal(monthlyData[monthIndex]);
          tooltipText.value = `총 지출액: ${totalExpense}`;
-         tooltipTop.value = event.clientY + 400;
+         tooltipTop.value = event.clientY + 340;
          tooltipLeft.value = event.clientX + 60;
       };
 

@@ -12,6 +12,7 @@ export const useEntriesStore = defineStore('entries', {
     totalExpense: 0,
     selectMonth: "",
   }),
+
   actions: {
     async fetchEntries() {
       try {
@@ -22,26 +23,10 @@ export const useEntriesStore = defineStore('entries', {
         console.error('Error fetching data:', error);
       }
     },
-    async getEntryById(id) {
-        try {
-          const response = await axios.get(`http://localhost:3000/transaction/${id}`);
-          return response.data;
-        } catch (error) {
-          console.error('Error fetching entry by id:', error);
-        }
-      },
-    async getNextId() {
-        try {
-          const response = await axios.get('http://localhost:3000/transaction');
-          this.entries = response.data;
-          let index = (this.entries.length) -1
-          let id = parseInt(this.entries[index].id)
-          return String(id + 1)
-          
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      },
+
+
+
+
 
 
     async deleteEntry(id) {
@@ -56,8 +41,8 @@ export const useEntriesStore = defineStore('entries', {
     filterEntries() {
       this.filteredEntries = this.entries.filter(entry => {
         return (!this.selectedDate || entry.date === this.selectedDate) &&
-               (!this.selectedType || entry.type === this.selectedType) &&
-               (!this.selectedCategory || entry.category === this.selectedCategory);
+          (!this.selectedType || entry.type === this.selectedType) &&
+          (!this.selectedCategory || entry.category === this.selectedCategory);
       });
     },
     setMonth(month) {
@@ -69,9 +54,9 @@ export const useEntriesStore = defineStore('entries', {
         this.entries = response.data;
         console.log(this.entries)
 
-        const result = this.entries.reduce((prev, cur)=>{
-          let month = parseInt(cur.date.substring(5,7))
-          if(month == this.selectMonth ) {
+        const result = this.entries.reduce((prev, cur) => {
+          let month = parseInt(cur.date.substring(5, 7))
+          if (month == this.selectMonth) {
             return prev += cur.amount;
           } else {
             return prev
@@ -90,10 +75,10 @@ export const useEntriesStore = defineStore('entries', {
         const response = await axios.get(`http://localhost:3000/transaction?type=expense`);
         this.entries = response.data;
         console.log(this.entries)
-        
-        const result = this.entries.reduce((prev, cur)=>{
-          let month = parseInt(cur.date.substring(5,7))
-          if(month == this.selectMonth ) {
+
+        const result = this.entries.reduce((prev, cur) => {
+          let month = parseInt(cur.date.substring(5, 7))
+          if (month == this.selectMonth) {
             return prev += cur.amount;
           } else {
             return prev

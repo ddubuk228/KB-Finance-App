@@ -224,7 +224,7 @@
     content: "";
     height: 26px;
     width: 26px;
-    left: 17px;
+    left: 10px;
     bottom: 4px;
     background-color: white;
     border-radius: 50%;
@@ -236,7 +236,7 @@
   }
   
   .ios-switch input:checked + label:before {
-    transform: translateX(20px);
+    transform: translateX(47px);
   }
   
   .button-group {
