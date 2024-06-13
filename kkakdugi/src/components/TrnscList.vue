@@ -2,22 +2,28 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
+        <!-- 거래 내역 리스트 -->
         <div v-for="(entry, index) in paginatedEntries" :key="index">
           <div class="transaction-item">
-            <TrnscListItem :entry="entry" @edit-entry="editEntry" @delete-entry="deleteEntry" />
+            <!-- 거래 내역 카드 불러오기 -->
+            <TrnscListItem :entry="entry" @edit-entry="editEntry" @delete-entry="deleteEntry" /> 
           </div>
         </div>
       </div>
     </div>
-    <!-- Pagination -->
+    <!-- 페이지네이션 -->
     <nav aria-label="Page navigation">
       <ul class="pagination justify-content-center mt-4">
+        <!-- 이전 페이지 버튼 -->
         <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
           <button class="page-link" @click="prevPage">{{ t('previous') }}</button>
         </li>
-        <li class="page-item" v-for="page in totalPages" :key="page" :class="{ 'active': page === currentPage }">
-          <button class="page-link" @click="goToPage(page)">{{ page }}</button>
+        <!-- 페이지 번호 버튼 -->
+        <li class="page-item" v-for="page in visiblePages" :key="page" :class="{ 'active': page === currentPage }">
+          <button v-if="page !== '...'" class="page-link" @click="goToPage(page)">{{ page }}</button>
+          <span v-else class="page-link">...</span>
         </li>
+        <!-- 다음 페이지 버튼 -->
         <li class="page-item" :class="{ 'disabled': currentPage === totalPages }">
           <button class="page-link" @click="nextPage">{{ t('next') }}</button>
         </li>
@@ -44,6 +50,7 @@ export default {
     const userInfo = ref({ language: 'ko' });
     const userStore = useUserStore();
 
+    // 사용자 데이터 가져오기
     const fetchUserData = async () => {
       try {
         const user = await userStore.fetchUser();
@@ -54,13 +61,15 @@ export default {
         console.error('데이터를 가져오는 도중 에러 발생:', error);
       }
     };
+
+    // 컴포넌트 마운트 시 사용자 데이터와 언어 설정 초기화
     onMounted(() => {
       fetchUserData();
       userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
       locale.value = userInfo.value.language ? 'en' : 'ko';
     });
 
-
+    // 선택된 날짜, 유형, 카테고리 필터링
     const selectedDate = computed({
       get: () => store.selectedDate,
       set: (value) => store.setSelectedDate(value),
@@ -76,9 +85,10 @@ export default {
       set: (value) => store.setSelectedCategory(value),
     });
 
+    // 필터링된 거래 내역 가져오기
     const filteredEntries = computed(() => store.filteredEntries);
 
-    // Pagination
+    // 페이지네이션 설정
     const itemsPerPage = 5;
     const currentPage = ref(1);
 
@@ -90,30 +100,56 @@ export default {
       return filteredEntries.value.slice(startIndex, endIndex);
     });
 
+    const visiblePages = computed(() => {
+      const pages = [];
+      if (totalPages.value <= 5) {
+        for (let i = 1; i <= totalPages.value; i++) {
+          pages.push(i);
+        }
+      } else {
+        if (currentPage.value <= 3) {
+          pages.push(1, 2, 3, 4, totalPages.value);
+        } else if (currentPage.value >= totalPages.value - 2) {
+          pages.push(1, totalPages.value - 3, totalPages.value - 2, totalPages.value - 1, totalPages.value);
+        } else {
+          pages.push(1,  currentPage.value - 1, currentPage.value, currentPage.value + 1, totalPages.value);
+        }
+      }
+      return pages;
+    });
+
+    // 이전 페이지 이동
     const prevPage = () => {
       if (currentPage.value > 1) {
         currentPage.value--;
       }
     };
 
+    // 다음 페이지 이동
     const nextPage = () => {
       if (currentPage.value < totalPages.value) {
         currentPage.value++;
       }
     };
 
+    // 특정 페이지로 이동
     const goToPage = (page) => {
-      currentPage.value = page;
+      if (page !== '...') {
+        currentPage.value = page;
+      }
     };
 
-    const editEntry = (id) => {
+    // 거래 내역 편집
+    const editEntry = (id) => {  
       console.log("Edit entry", id);
     };
 
+    // 거래 내역 삭제
     const deleteEntry = async (id) => {
       await store.deleteEntry(id);
     };
 
+    // 거래 내역 가져오기
     store.fetchEntries();
 
     return {
@@ -129,6 +165,7 @@ export default {
       goToPage,
       editEntry,
       deleteEntry,
+      visiblePages,
       t,
       locale,
       userInfo,

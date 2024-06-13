@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { useEntriesStore } from "../store/entries"; // Store import
+import { useEntriesStore } from "../store/entries"; 
 import { useUserStore } from '@/store/user';
 import { ref, onMounted, watch } from "vue";
 import { useI18n } from "vue-i18n";
@@ -25,10 +25,10 @@ export default {
     }
   },
   setup() {
-    const store = useEntriesStore(); // Store instance
-    const currentMonth = new Date().getMonth() + 1; // Get current month
-    const selectMonth = ref(); // Reactive variable for selected month
-    const dropdownOpen = ref(false); // Reactive variable for dropdown state
+    const store = useEntriesStore(); 
+    const currentMonth = new Date().getMonth() + 1; 
+    const selectMonth = ref(); 
+    const dropdownOpen = ref(false); 
     const months = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
     
     const userStore = useUserStore();
@@ -46,23 +46,23 @@ export default {
       }
     };
 
-    // Toggle dropdown visibility
+   
     const toggleDropdown = () => {
       dropdownOpen.value = !dropdownOpen.value;
     };
 
-    // Select a month and close dropdown
+   
     const selectOption = (month) => {
       selectMonth.value = month;
       dropdownOpen.value = false;
     };
 
-    // Watch for changes in selected month and update the store
+    
     watch(selectMonth, (newMonth) => {
       store.setMonth(newMonth);
     });
 
-    // Initialize selected month in the store
+    
     onMounted(() => {
       selectMonth.value = store.selectMonth || currentMonth;
       store.setMonth(selectMonth.value);
@@ -71,7 +71,7 @@ export default {
       locale.value = userInfo.value.language ? 'en' : 'ko';
     });
 
-    // Method for handling settings button click
+   
     const openSettings = () => {
       console.log("Settings button clicked");
     };
@@ -96,7 +96,6 @@ export default {
 <style scoped>
   .calendar {
   border-radius: 10px;
-  /* overflow: hidden;  Removed this line */
 }
 
 .dropdown {
@@ -125,7 +124,6 @@ export default {
   z-index: 1000;
   border-radius: 0.375rem;
   background-color: #fff;
-  /* Set background color */
   padding: 1px;
   font-family: "MangoDdobak-B";
   left: -40px;
@@ -137,7 +135,6 @@ export default {
   cursor: pointer;
   text-align: center;
   background-color: #fff;
-  /* Set background color */
   padding: 5px 10px;
 }
 

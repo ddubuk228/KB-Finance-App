@@ -1,5 +1,3 @@
-//Profile
-
 <template>
     <div class="card" :class="{ 'darkTheme': userInfo.theme }">
       <div class="card-header">
@@ -63,25 +61,26 @@
   
   export default {
     setup() {
-      const { t, locale } = useI18n();
+      const { t, locale } = useI18n(); // 언어 설정을 위한 변수 선언
+    
       const userInfo = ref({
         id: '1',
         name: '',
         email: '',
         maxBudget: '',
         notification: false,
-        language: localStorage.getItem('userLanguage') === 'true',
-        theme: localStorage.getItem('userTheme') === 'true',
+        language: localStorage.getItem('userLanguage') === 'true', // 로컬 스토리지에 저장된 언어 설정을 가져와서 초기값으로 설정
+        theme: localStorage.getItem('userTheme') === 'true',// 로컬 스토리지에 저장된 테마 설정을 가져와서 초기값으로 설정
       });
-      const isModalOpen = ref(false);
+
+      const userStore = useUserStore(); // 유저 정보를 가져오기 위한 변수 선언
   
-      const userStore = useUserStore();
-  
-      const fetchUserData = async () => {
+      // 유저 정보를 가져오는 함수
+      const fetchUserData = async () => { 
         try {
           const user = await userStore.fetchUser();
-          if (user) {
-            userInfo.value = { ...user };
+          if (user) { 
+            userInfo.value = { ...user }; // 유저 정보를 가져와서 userInfo에 저장
           }
         } catch (error) {
           console.error('데이터를 가져오는 도중 에러 발생:', error);
@@ -91,43 +90,37 @@
       // 페이지가 로드될 때 한 번만 실행되도록 onMounted 사용
       onMounted(() => {
         fetchUserData();
-        userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
-        locale.value = userInfo.value.language ? 'en' : 'ko';
+        userInfo.value.language = localStorage.getItem('userLanguage') === 'true'; // 로컬 스토리지에 저장된 언어 설정을 가져와서 초기값으로 설정
+        locale.value = userInfo.value.language ? 'en' : 'ko'; // 언어 설정에 따라 화면에 보여지는 언어 변경
       });
   
+      // 유저 정보 수정 함수
       const editUser = async () => {
-        if (!userInfo.value.name || !userInfo.value.email) {
-          if (this.$refs.emptyFieldModal) {
-            this.$refs.emptyFieldModal.classList.add('show');
-            this.$refs.emptyFieldModal.style.display = 'block';
-          }
-          return;
+        try{
+          await userStore.editUser(userInfo.value); // 수정된 유저 정보를 저장
+          fetchUserData(); // 수정된 유저 정보를 다시 가져옴
+
+          localStorage.setItem('userLanguage', userInfo.value.language.toString()); // 수정된 언어 설정을 로컬 스토리지에 저장
+          localStorage.setItem('userTheme', userInfo.value.theme.toString()); // 수정된 테마 설정을 로컬 스토리지에 저장
+          locale.value = userInfo.value.language ? 'ko' : 'en'; // 언어 설정에 따라 화면에 보여지는 언어 변경
+          window.location.reload(); // 페이지 업데이트
         }
-  
-        try {
-          await userStore.editUser(userInfo.value);
-          fetchUserData();
-          localStorage.setItem('userLanguage', userInfo.value.language.toString());
-          localStorage.setItem('userTheme', userInfo.value.theme.toString());
-          locale.value = userInfo.value.language ? 'ko' : 'en';
-          window.location.reload();
-        } catch (error) {
+        catch (error) {
           console.error('데이터를 수정하는 도중 에러 발생:', error);
         }
       };
   
-      const closeModal = () => {
-        isModalOpen.value = false;
-      };
-  
+      //알림 설정 함수
       const toggleNotification = () => {
-        userInfo.value.notification = !userInfo.value.notification;
+        userInfo.value.notification = !userInfo.value.notification; 
       };
   
+      //언어 변경 함수
       const toggleLanguageSwitch = () => {
         userInfo.value.language = !userInfo.value.language;
       };
-  
+      
+      //테마 변경 함수
       const toggleThemeSwitch = () => {
         userInfo.value.theme = !userInfo.value.theme;
       };
@@ -136,9 +129,7 @@
         t,
         locale,
         userInfo,
-        isModalOpen,
         editUser,
-        closeModal,
         toggleNotification,
         toggleLanguageSwitch,
         toggleThemeSwitch,

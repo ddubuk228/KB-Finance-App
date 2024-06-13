@@ -1,19 +1,19 @@
 <template>
-   <div class="title">{{ t('monthlyExpense') }}</div>
+   <div class="title">{{ t('monthlyExpense') }}</div> <!--제목 지정-->
    <div class="chart-container">
       <div class="chart">
          <div v-for="(monthData, index) in monthlyData" :key="index" class="chart-bar"
-            @mouseover="updatePosition($event, index)" @mouseout="clearTooltip">
+            @mouseover="updatePosition($event, index)" @mouseout="clearTooltip"> <!--차트 구현 및 마우스 이벤트 생성-->
             <div class="chart-bar__inner">
                <div :class="['chart-bar__fill', getBarClass(getMonthTotal(monthData))]"
-                  :style="{ height: getFillHeight(getMonthTotal(monthData)) }">
+                  :style="{ height: getFillHeight(getMonthTotal(monthData)) }"> <!--차트 바 구현-->
                </div>
                <div class="chart-bar__tooltip" v-if="tooltipText" ref="tooltip"
-                  :style="{ top: tooltipTop + 'px', left: tooltipLeft + 'px' }">
+                  :style="{ top: tooltipTop + 'px', left: tooltipLeft + 'px' }"> <!--툴팁 구현 및 위치 설정 -->
                   {{ tooltipText }}
                </div>
             </div>
-            <strong class="fs-tiny fw-light">{{ getMonthName(index) }}</strong>
+            <strong class="fs-tiny fw-light">{{ getMonthName(index) }}</strong> <!--해당 차트의 월 표시-->
          </div>
       </div>
    </div>
@@ -28,6 +28,7 @@ import { useUserStore } from '@/store/user';
 export default {
    name: "Chart",
    setup() {
+      //데이터 초기화
       const jsonData = ref(null);
       const monthlyData = reactive({});
       const MaxMonthTotal = ref(0);
@@ -40,22 +41,26 @@ export default {
       const userInfo = ref({ language: 'ko' });
       const userStore = useUserStore();
 
-    const fetchUserData = async () => {
-        try {
-          const user = await userStore.fetchUser();
-          if (user) {
-            userInfo.value = { ...user };
-          }
-        } catch (error) {
-          console.error('데이터를 가져오는 도중 에러 발생:', error);
-        }
+      //pinia 저장소를 이용한 users 데이터 가져오는 함수
+      const fetchUserData = async () => {
+         try {
+            const user = await userStore.fetchUser();
+            if (user) {
+               userInfo.value = { ...user };
+            }
+         } catch (error) {
+            console.error('데이터를 가져오는 도중 에러 발생:', error);
+         }
       };
-    onMounted(() => {
-      fetchUserData();
-      userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
-      locale.value = userInfo.value.language ? 'en' : 'ko';
-    });
 
+      //언어 설정
+      onMounted(() => {
+         fetchUserData();
+         userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+         locale.value = userInfo.value.language ? 'en' : 'ko';
+      });
+
+      //pinia 저장소를 이용한 entries 데이터 가져오는 함수
       const fetchEntries = async () => {
          try {
             await entriesStore.fetchEntries();
@@ -66,6 +71,7 @@ export default {
          }
       };
 
+      //axios를 이용한 users 데이터의 maxBudget을 가져오는 함수
       const fetchUser = async () => {
          try {
             const response = await axios.get('http://localhost:3000/users?_sort=-date');
@@ -75,16 +81,19 @@ export default {
          }
       };
 
+      //목표 금액 초과시 스타일 바꾸는 함수
       const getBarClass = (total) => {
          return total > maxBudget.value ? 'high-budget' : '';
       };
 
+      //해당 월의 총 지출액을 구하는 함수
       const getMonthTotal = (monthData) => {
          return monthData
             .filter(item => item.type === "expense")
             .reduce((total, item) => total + item.amount, 0);
       };
 
+      //차트의 월 표시하는 함수
       const getMonthName = (monthNumber) => {
          const monthNames = [
             "1", "2", "3", "4", "5", "6",
@@ -93,6 +102,7 @@ export default {
          return monthNames[monthNumber - 1];
       };
 
+      //차트의 높이를 구하는 함수(가장 높은 지출액 기준)
       const getFillHeight = (total) => {
          if (MaxMonthTotal.value > 0) {
             return Math.round((total / MaxMonthTotal.value) * 100) + "%";
@@ -101,6 +111,7 @@ export default {
          }
       };
 
+      //월별 데이터 계산 함수
       const calculateMonthlyData = () => {
          if (!jsonData.value) return;
          for (let i = 1; i <= 12; i++) {
@@ -119,17 +130,24 @@ export default {
          }, 0);
       };
 
+      //툴팁 위치 구현 함수
       const updatePosition = (event, monthIndex) => {
          const totalExpense = getMonthTotal(monthlyData[monthIndex]);
          tooltipText.value = `총 지출액: ${totalExpense}`;
+<<<<<<< HEAD
          tooltipTop.value = event.clientY + 340;
+=======
+         tooltipTop.value = event.clientY + 440;
+>>>>>>> c06f702028bc1e864816cc5d8d68974165fc99e7
          tooltipLeft.value = event.clientX + 60;
       };
 
+      //툴팁 지우는 함수
       const clearTooltip = () => {
          tooltipText.value = '';
       };
 
+      //컴포넌트 마운트 시 데이터 반환
       onMounted(async () => {
          try {
             await Promise.all([fetchEntries(), fetchUser()]);
@@ -198,9 +216,11 @@ export default {
    background-color: #ffd780;
    transition: all 300ms ease-out;
 }
+
 .chart-bar__fill.high-budget {
    background-color: red;
 }
+
 .chart-bar__tooltip {
    position: absolute;
    left: 50%;
@@ -212,7 +232,8 @@ export default {
    color: #333;
    white-space: nowrap;
 }
-.title{
+
+.title {
    font-family: "MangoDdobak-B";
    text-align: center;
 }
