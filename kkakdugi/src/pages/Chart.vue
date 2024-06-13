@@ -18,12 +18,10 @@
       </div>
    </div>
 </template>
-
 <script>
 import { ref, reactive, onMounted } from 'vue';
 import { useEntriesStore } from '../store/entries';
 import axios from 'axios';
-
 export default {
    name: "Chart",
    setup() {
@@ -133,7 +131,6 @@ export default {
    }
 };
 </script>
-
 <style>
 .chart-container {
    display: flex;
@@ -176,11 +173,9 @@ export default {
    background-color: #ffd780;
    transition: all 300ms ease-out;
 }
-
 .chart-bar__fill.high-budget {
    background-color: red;
 }
-
 .chart-bar__tooltip {
    position: absolute;
    left: 50%;

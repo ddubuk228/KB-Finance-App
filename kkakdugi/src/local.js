@@ -24,6 +24,11 @@ const messages = {
       expense: '지출',
       history: '거래 내역',
       enterTransaction: '거래 내역을 입력하세요.',
+      enterAmount: '금액을 입력하세요.',
+      enterMemo: '메모를 입력하세요.',
+      enterName: '이름을 입력하세요.',
+      enterEmail: '이메일을 입력하세요.',
+      enterMaxBudget: '최대 예산을 입력하세요.',
       amount: '금액',
       memo: '메모',
       registration: '등록',
@@ -35,9 +40,13 @@ const messages = {
       listTransaction: '거래 내역 목록',
       previous: '이전',
       next: '다음',
-      error: '잘못된 주소입니다.'
-    
-
+      summaryTransaction: '거래 내역 요약',
+      dateTransaction: '거래 날짜',
+      error: '잘못된 주소입니다.',
+      months: [
+        '1월', '2월', '3월', '4월', '5월', '6월',
+        '7월', '8월', '9월', '10월', '11월', '12월'
+      ],
     },
     en: {
       profile: 'Profile',
@@ -64,6 +73,11 @@ const messages = {
       expense: 'Expense',
       history: 'Transaction History',
       enterTransaction: 'Please enter transaction details.',
+      enterAmount: 'Please enter amount.',
+      enterMemo: 'Please enter memo.',
+      enterName: 'Please enter name.',
+      enterEmail: 'Please enter email.',
+      enterMaxBudget: 'Please enter max budget.',
       amount: 'Amount',
       memo: 'Memo',
       registration: 'Regis',
@@ -75,9 +89,13 @@ const messages = {
       listTransaction: '+ List of Transactions',
       previous: 'Prev',
       next: 'Next',
+      summaryTransaction: 'Summary of Transactions',
+      dateTransaction: 'Transaction Date',
       error: '404',
-
-
+      months: [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      ],
     },
   };
   

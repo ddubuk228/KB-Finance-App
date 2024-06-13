@@ -5,24 +5,50 @@
       <!-- 닫기 버튼 -->
       <button class="modal-close is-large" aria-label="close" @click="close">Close</button>
       <div class="box">
-        <p><strong>거래 내역 요약</strong></p>
-        <p>거래 날짜: {{ transactionDate }}</p>
-        <p>거래 내역: {{ transactionDetails }}</p>
-        <p>금액: {{ amount }}</p>
-        <p>메모: {{ memo }}</p>
+        <p><strong>{{ t('summaryTransaction') }}</strong></p>
+          <p>{{ t('dateTransaction') }}: {{ transactionDate }}</p>
+          <p>{{ t('history') }}: {{ transactionDetails }}</p>
+          <p>{{ t('amount') }}: {{ amount }}</p>
+          <p>{{ t('memo') }}: {{ memo }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { useUserStore } from '@/store/user';
+import { useI18n } from "vue-i18n";
+import { ref, onMounted } from "vue";
 export default {
-  props: {
-    show: Boolean,
-    transactionDate: String,
-    transactionDetails: String,
-    amount: Number,
-    memo: String,
+  setup() {
+      const { t, locale } = useI18n();
+      const userInfo = ref({ language: 'ko' });
+      const userStore = useUserStore();
+
+      const fetchUserData = async () => {
+        try {
+          const user = await userStore.fetchUser();
+          if (user) {
+            userInfo.value = { ...user };
+          }
+        } catch (error) {
+          console.error('데이터를 가져오는 도중 에러 발생:', error);
+        }
+      };
+    onMounted(() => {
+      fetchUserData();
+      userInfo.value.language = localStorage.getItem('userLanguage') === 'true';
+      locale.value = userInfo.value.language ? 'en' : 'ko';
+    });
+      
+        return { t, locale, userInfo };
+      },
+    props: {
+      show: Boolean,
+      transactionDate: String,
+      transactionDetails: String,
+      amount: Number,
+      memo: String,
   },
   methods: {
     close() {

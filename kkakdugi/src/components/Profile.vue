@@ -12,15 +12,15 @@
           </div>
           <div class="form-group">
             <label for="name">{{ t('name') }}</label>
-            <input type="text" class="form-control" id="name" v-model="userInfo.name" required />
+            <input type="text" class="form-control" id="name" v-model="userInfo.name" :placeholder="$t('enterName')" required />
           </div>
           <div class="form-group">
             <label for="email">{{ t('email') }}</label>
-            <input type="email" class="form-control" id="email" v-model="userInfo.email" required />
+            <input type="email" class="form-control" id="email" v-model="userInfo.email" :placeholder="$t('enterEmail')" required />
           </div>
           <div class="form-group">
             <label for="maxBudget">{{ t('maxBudget') }}</label>
-            <input type="text" class="form-control" id="maxBudget" v-model="userInfo.maxBudget" required />
+            <input type="text" class="form-control" id="maxBudget" v-model="userInfo.maxBudget" :placeholder="$t('enterMaxBudget')" required />
           </div>
           <div class="switch-group">
             <label class="switch-label">{{ t('notification') }}</label>
