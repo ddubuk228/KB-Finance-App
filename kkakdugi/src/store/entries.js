@@ -25,12 +25,6 @@ export const useEntriesStore = defineStore('entries', {
       }
     },
 
-<<<<<<< HEAD
-
-
-
-
-=======
     // 특정 ID의 거래 내역을 서버에서 가져오는 함수
     async getEntryById(id) {
       try {
@@ -53,7 +47,6 @@ export const useEntriesStore = defineStore('entries', {
         console.error('Error fetching data:', error);
       }
     },
->>>>>>> c06f702028bc1e864816cc5d8d68974165fc99e7
 
     // 특정 ID의 거래 내역을 삭제하는 함수
     async deleteEntry(id) {
@@ -61,6 +54,7 @@ export const useEntriesStore = defineStore('entries', {
         await axios.delete(`http://localhost:3000/transaction/${id}`);
         this.entries = this.entries.filter(entry => entry.id !== id);
         this.filterEntries(); // 삭제 후 데이터를 필터링
+        this.recentEntries()
       } catch (error) {
         console.error('Error deleting entry:', error);
       }
@@ -88,13 +82,8 @@ export const useEntriesStore = defineStore('entries', {
         console.log(this.entries);
 
         const result = this.entries.reduce((prev, cur) => {
-<<<<<<< HEAD
-          let month = parseInt(cur.date.substring(5, 7))
-          if (month == this.selectMonth) {
-=======
           let month = parseInt(cur.date.substring(5,7));
           if(month == this.selectMonth) {
->>>>>>> c06f702028bc1e864816cc5d8d68974165fc99e7
             return prev += cur.amount;
           } else {
             return prev;
@@ -113,19 +102,11 @@ export const useEntriesStore = defineStore('entries', {
       try {
         const response = await axios.get(`http://localhost:3000/transaction?type=expense`);
         this.entries = response.data;
-<<<<<<< HEAD
-        console.log(this.entries)
-
-        const result = this.entries.reduce((prev, cur) => {
-          let month = parseInt(cur.date.substring(5, 7))
-          if (month == this.selectMonth) {
-=======
         console.log(this.entries);
 
         const result = this.entries.reduce((prev, cur) => {
           let month = parseInt(cur.date.substring(5,7));
           if(month == this.selectMonth) {
->>>>>>> c06f702028bc1e864816cc5d8d68974165fc99e7
             return prev += cur.amount;
           } else {
             return prev;

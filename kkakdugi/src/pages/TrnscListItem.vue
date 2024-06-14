@@ -12,7 +12,7 @@
           <button @click="editEntry(entry.id)" class="btn btn-outline-warning">
             {{ t('edit') }}
           </button>
-          <button @click="deleteEntry(entry.id)" class="btn btn-outline-warning">
+          <button @click="handleDelete(entry.id)" class="btn btn-outline-warning">
             {{ t('delete') }}
           </button>
         </div>
@@ -29,13 +29,13 @@
   import { useRouter } from "vue-router";
   import { useI18n } from "vue-i18n";
   import { onMounted } from "vue";
-  import MemoModal from "@/components/MemoModal.vue"; // 모달 컴포넌트 임포트
+  import MemoModal from "@/pages/MemoModal.vue"; // 모달 컴포넌트 임포트
   
   export default defineComponent({
     props: {
       entry: Object,
     },
-    setup(props) {
+    setup(props, { emit }) {
       const router = useRouter();
       const store = useEntriesStore();
       const userStore = useUserStore();
@@ -69,16 +69,25 @@
       const toggleModal = () => {
         showModal.value = !showModal.value;
       };
+
+      const handleDelete = async(id)=> {
+        try {
+          await deleteEntry(id);
+          emit('entry-deleted');
+        } catch (error) {
+          console.log(error)
+        }
+      };
   
       return {
         ...toRefs(props),
         editEntry,
-        deleteEntry,
         showModal,
         toggleModal,
         t,
         locale,
         userInfo,
+        handleDelete
       };
     },
     components: {

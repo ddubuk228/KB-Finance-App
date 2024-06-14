@@ -8,18 +8,15 @@
         </h2>
         <div class="button">
           <!-- 수입 버튼 -->
-          <button
-            class="btn btn-warning mr-2"
-            @click="selectedType = 'income'"
-          >
+          <button  :class="['btn', 'mr-2', { 'btn-warning': selectedType === 'income', 'btn-light': selectedType !== 'income' }]"
+            @click="selectedType = 'income'">
             {{ t('income') }}
           </button>
           <!-- 지출 버튼 -->
           <button
-            :class="{ 'btn': true, 'btn-Light': userTheme, 'btn-light': !userTheme }"
-            class="btn btn-Light mr-2"
-            @click="selectedType = 'expense'"
-          >
+            :class="[ 'btn', 'mr-2', 
+              { 'btn-warning': selectedType === 'expense', 'btn-light': selectedType !== 'expense' }]"
+            @click="selectedType = 'expense'">
             {{ t('expense') }}
           </button>
           <!-- 카테고리 선택 -->
@@ -34,6 +31,11 @@
       </div>
     </div>
     <!-- 거래 내역 리스트 컴포넌트 -->
+    <div class="btnBox">
+      <router-link to="/trnsc/add"><button class="addBtn">
+          <i class="fa-solid fa-plus"></i>
+        </button></router-link>
+    </div>
     <TrnscList />
     <!-- 메인 페이지로 이동 버튼 -->
     <div class="row mt-4">
@@ -142,28 +144,35 @@ export default {
 
 .button {
   display: flex;
+  justify-content: space-between;
 }
 
 @font-face {
   font-family: "MangoDdobak-B";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2")
-    format("woff2");
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405-3@1.1/MangoDdobak-B.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
 }
 
 button {
-  width: 70px;
-  margin-left: 10px;
+  width: 80px;
 }
 
 select {
   width: 120px;
-  margin-left: 10px;
 }
 
 h2 {
   width: 300px;
+}
+
+.btn-light {
+  background-color: white;
+  border-color: rgb(207, 207, 207);
+}
+
+.form-control {
+  border-color: rgb(207, 207, 207);
 }
 
 .transaction-item {
@@ -172,5 +181,28 @@ h2 {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.mb-2 {
+  text-align: center;
+  margin-bottom: 0 !important;
+}
+
+.btnBox {
+  position: fixed;
+  text-align: right;
+  width: 489px;
+  z-index: 2;
+  bottom: 35px;
+}
+
+.addBtn {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgb(255, 232, 157);
+  font-size: 25px;
+  line-height: 20px;
 }
 </style>

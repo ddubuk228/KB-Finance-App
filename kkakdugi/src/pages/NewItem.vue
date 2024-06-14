@@ -177,7 +177,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 450px;
+  width: 460px;
   height: 630px;
 }
 
@@ -206,7 +206,7 @@ select {
 
 /* 버튼 스타일 */
 button {
-  width: 70px;
+  width: 80px;
   margin-left: 10px;
 }
 
@@ -215,5 +215,8 @@ button {
   height: 670px;
   display: flex;
   align-items: center;
+}
+.button-group {
+  text-align: right;
 }
 </style>

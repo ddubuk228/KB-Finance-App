@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Main from '@/pages/Main.vue'
-import TrnscListContainer from '@/components/TrnscListContainer.vue'
-import NewItem from '@/components/NewItem.vue'
-import Profile from '@/components/Profile.vue'
+import TrnscListContainer from '@/pages/TrnscListContainer.vue'
+import NewItem from '@/pages/NewItem.vue'
+import Profile from '@/pages/Profile.vue'
 import NotFound from '@/pages/NotFound.vue'
 
 
