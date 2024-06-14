@@ -124,7 +124,7 @@ export const useEntriesStore = defineStore('entries', {
     // 최근 거래 내역을 가져오는 함수
     async recentEntries() {
       try {
-        const response = await axios.get('http://localhost:3000/transaction?_sort=-date&&_limit=5&&type=expense');
+        const response = await axios.get('http://localhost:3000/transaction?_sort=-date&&_limit=5');
         this.entries = response.data;
         console.log("Fetched recent entries:", this.entries);
       } catch (error) {
