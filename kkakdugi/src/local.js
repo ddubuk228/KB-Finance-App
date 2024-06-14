@@ -38,7 +38,7 @@ const messages = {
       delete: '삭제',
       won: '원',
       month: '월',
-      listTransaction: '거래 내역 목록',
+      listTransaction: '+ 거래 내역 목록',
       previous: '이전',
       next: '다음',
       summaryTransaction: '거래 내역 요약',

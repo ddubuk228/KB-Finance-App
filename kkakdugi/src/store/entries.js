@@ -12,6 +12,7 @@ export const useEntriesStore = defineStore('entries', {
     totalExpense: 0,        // 총 지출
     selectMonth: "",        // 선택된 월
   }),
+
   actions: {
     // 거래 내역을 서버에서 가져오는 함수
     async fetchEntries() {
@@ -53,6 +54,7 @@ export const useEntriesStore = defineStore('entries', {
         await axios.delete(`http://localhost:3000/transaction/${id}`);
         this.entries = this.entries.filter(entry => entry.id !== id);
         this.filterEntries(); // 삭제 후 데이터를 필터링
+        this.recentEntries()
       } catch (error) {
         console.error('Error deleting entry:', error);
       }
@@ -62,8 +64,8 @@ export const useEntriesStore = defineStore('entries', {
     filterEntries() {
       this.filteredEntries = this.entries.filter(entry => {
         return (!this.selectedDate || entry.date === this.selectedDate) &&
-               (!this.selectedType || entry.type === this.selectedType) &&
-               (!this.selectedCategory || entry.category === this.selectedCategory);
+          (!this.selectedType || entry.type === this.selectedType) &&
+          (!this.selectedCategory || entry.category === this.selectedCategory);
       });
     },
 

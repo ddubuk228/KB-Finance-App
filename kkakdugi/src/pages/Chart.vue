@@ -1,7 +1,7 @@
 <template>
    <div class="title">{{ t('monthlyExpense') }}</div> <!--제목 지정-->
    <div class="chart-container">
-      <div class="chart">
+      <div class="chart" :class="{ 'darkTheme': userInfo.theme }">
          <div v-for="(monthData, index) in monthlyData" :key="index" class="chart-bar"
             @mouseover="updatePosition($event, index)" @mouseout="clearTooltip"> <!--차트 구현 및 마우스 이벤트 생성-->
             <div class="chart-bar__inner">
@@ -105,7 +105,12 @@ export default {
       //차트의 높이를 구하는 함수(가장 높은 지출액 기준)
       const getFillHeight = (total) => {
          if (MaxMonthTotal.value > 0) {
-            return Math.round((total / MaxMonthTotal.value) * 100) + "%";
+            if (MaxMonthTotal.value > maxBudget.value) {
+               return Math.round((total / MaxMonthTotal.value) * 100) + "%";
+            } else {
+               return Math.round((total / MaxMonthTotal.value) * 80) + "%";
+            }
+
          } else {
             return "0%";
          }
@@ -134,7 +139,7 @@ export default {
       const updatePosition = (event, monthIndex) => {
          const totalExpense = getMonthTotal(monthlyData[monthIndex]);
          tooltipText.value = `총 지출액: ${totalExpense}`;
-         tooltipTop.value = event.clientY + 440;
+         tooltipTop.value = event.clientY + 350;
          tooltipLeft.value = event.clientX + 60;
       };
 
@@ -185,6 +190,8 @@ export default {
    padding: 10px;
    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
    width: 600px;
+   border: 5px solid rgb(255, 232, 157);
+   border-radius: 5px;
 }
 
 .chart-bar {
@@ -232,5 +239,10 @@ export default {
 .title {
    font-family: "MangoDdobak-B";
    text-align: center;
+}
+
+.darkTheme {
+   background-color: white;
+   color: black;
 }
 </style>

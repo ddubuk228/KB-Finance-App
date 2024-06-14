@@ -12,7 +12,7 @@
       </div>
     </div>
     <!-- 페이지네이션 -->
-    <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation" class="paging-box">
       <ul class="pagination justify-content-center mt-4">
         <!-- 이전 페이지 버튼 -->
         <li class="page-item" :class="{ 'disabled': currentPage === 1 }">
@@ -209,8 +209,9 @@ h2 {
   align-items: center;
 }
 
-.pagnation {
+.pagination {
   color: rgb(243, 208, 91);
+  width: 412px;
 }
 
 .page-link {
@@ -218,5 +219,8 @@ h2 {
   background-color: rgb(243, 208, 91);
   border: rgb(243, 208, 91);
   width: 60px;
+}
+.page-item:first-child .page-link{
+  margin: 0;
 }
 </style>

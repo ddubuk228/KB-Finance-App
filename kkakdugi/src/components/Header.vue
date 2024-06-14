@@ -74,8 +74,10 @@ header {
   cursor: pointer;
   outline: none;
 }
-
-.settings-button:hover {
+.settings-button a {
+  font-size: 30px;
+}
+.settings-button a:hover {
   opacity: 0.8;
 }
 
