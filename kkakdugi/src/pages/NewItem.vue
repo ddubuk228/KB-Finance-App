@@ -63,7 +63,7 @@
           <div class="button-group">
             <button type="submit" class="btn btn-outline-warning">{{ t('registration') }}</button> 
             <button type="button" class="btn btn-outline-warning" @click="submitForm">{{ t('edit') }}</button>
-            <button type="button" class="btn btn-outline-warning" @click="cancelEntry">{{ t('cancle') }}</button>
+            <button type="button" class="btn btn-outline-warning" @click="cancelEntry">{{ t('cancel') }}</button>
           </div>
         </form>
       </div>

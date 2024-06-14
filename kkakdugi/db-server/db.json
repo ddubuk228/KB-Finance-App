@@ -249,7 +249,7 @@
       "id": "27",
       "type": "expense",
       "category": "식비",
-      "account": "음식점",
+      "account": "커피",
       "amount": 5000,
       "memo": "",
       "date": "2024-06-11"
@@ -258,7 +258,7 @@
       "id": "28",
       "type": "income",
       "category": "기타",
-      "account": "음식점",
+      "account": "주움",
       "amount": 5000,
       "memo": "",
       "date": "2024-06-11"
@@ -277,9 +277,9 @@
       "type": "expense",
       "category": "식비",
       "account": "음식점",
-      "amount": 5000,
+      "amount": 3000,
       "memo": "",
-      "date": "2024-06-24"
+      "date": "2024-09-04"
     },
     {
       "id": "31",
@@ -396,7 +396,7 @@
       "account": "간식",
       "amount": 6800,
       "memo": "",
-      "date": "2024-09-08"
+      "date": "2024-11-05"
     },
     {
       "id": "44",
@@ -474,7 +474,7 @@
       "id": "52",
       "type": "income",
       "category": "식비",
-      "account": "음식점",
+      "account": "카페",
       "amount": 48000,
       "memo": "",
       "date": "2024-11-07"
@@ -491,8 +491,8 @@
     {
       "id": "54",
       "type": "income",
-      "category": "식비",
-      "account": "음식점",
+      "category": "기타",
+      "account": "용돈",
       "amount": 61000,
       "memo": "",
       "date": "2024-11-03"
@@ -527,8 +527,8 @@
     {
       "id": "58",
       "type": "income",
-      "category": "식비",
-      "account": "음식점",
+      "category": "기타",
+      "account": "용돈",
       "amount": 53000,
       "memo": "",
       "date": "2024-12-14"
@@ -546,7 +546,7 @@
       "id": "60",
       "type": "income",
       "category": "식비",
-      "account": "음식점",
+      "account": "삼겹살",
       "amount": 54000,
       "memo": "",
       "date": "2024-12-01"
@@ -554,8 +554,8 @@
     {
       "id": "61",
       "type": "income",
-      "category": "식비",
-      "account": "음식점",
+      "category": "기타",
+      "account": "월급",
       "amount": 54000,
       "memo": "",
       "date": "2024-06-11"
@@ -564,7 +564,7 @@
       "id": "62",
       "type": "expense",
       "category": "식비",
-      "account": "음식점",
+      "account": "햄버거",
       "amount": 5400,
       "memo": "",
       "date": "2024-06-11"
@@ -573,8 +573,8 @@
       "id": "63",
       "type": "expense",
       "category": "식비",
-      "account": "음식점",
-      "amount": 5400,
+      "account": "과자",
+      "amount": 2000,
       "memo": "",
       "date": "2024-06-11"
     },
@@ -582,7 +582,7 @@
       "id": "64",
       "type": "expense",
       "category": "식비",
-      "account": "음식점",
+      "account": "커피",
       "amount": 3000,
       "memo": "햄버거",
       "date": "2024-12-21"
@@ -591,7 +591,7 @@
       "id": "65",
       "type": "expense",
       "category": "식비",
-      "account": "음식점",
+      "account": "햄버거",
       "amount": 5000,
       "memo": "",
       "date": "2024-12-21"
