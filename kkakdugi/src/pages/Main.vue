@@ -1,8 +1,10 @@
 <template>
   <div class="calendar-box">
+    <!-- 캘린더 컴포넌트 -->
     <Calendar />
   </div>
   <div class="summary">
+    <!-- 월 수입 -->
     <div class="total card">
       <div class="card-body">
         {{ currentMonth }}{{ t('month') }}<br />
@@ -12,6 +14,7 @@
         {{ formatNumber(totalIncome) }}{{ t('won') }}
       </div>
     </div>
+    <!-- 월 지출 -->
     <div class="total card">
       <div class="card-body">
         {{ currentMonth }}{{ t('month') }}<br />
@@ -21,6 +24,7 @@
         {{ formatNumber(totalExpense) }}{{ t('won') }}
       </div>
     </div>
+    <!-- 월 순수익 -->
     <div class="total card">
       <div class="card-body">
         {{ currentMonth }} {{ t('month') }}<br />
@@ -31,6 +35,7 @@
       </div>
     </div>
   </div>
+  <!-- 최근 거래내역 -->
   <div class="container">
     <div class="btnbox">
       <button class="btnlist">
@@ -53,6 +58,7 @@
       </div>
     </div>
   </div>
+  <!-- 차트 컴포넌트 -->
   <div class="chartBox">
     <Chart />
   </div>
@@ -62,7 +68,6 @@ import { useEntriesStore } from "../store/entries";
 import { ref, onMounted, watch } from 'vue';
 import TrnscListItem from "@/pages/TrnscListItem.vue";
 import Calendar from "@/pages/Calendar.vue";
-import axios from "axios";
 import Chart from './Chart.vue';
 import { useI18n } from "vue-i18n";
 import { useUserStore } from '@/store/user';
@@ -96,6 +101,7 @@ export default {
       locale.value = userInfo.value.language ? 'en' : 'ko';
     });
 
+    // 최근 거래 항목들을 가져오는 함수
     const fetchRecentEntries = async () => {
       try {
         await store.recentEntries();
@@ -104,27 +110,32 @@ export default {
         console.error('Error fetching recent entries:', error);
       }
     };
+
+    // 숫자 포맷
     const formatNumber = (number) => {
       return number.toLocaleString('ko-KR');
     };
 
+    // 선택된 월이 변경될 때마다 총 수입, 총 지출, 순이익 갱신
     watch(
       () => store.selectMonth,
       async (newMonth) => {
         currentMonth.value = newMonth;
-        totalIncome.value = await store.getTotalIncome();
-        totalExpense.value = await store.getTotalExpense();
-        netProfit.value = totalIncome.value - totalExpense.value;
+        totalIncome.value = await store.getTotalIncome(); // 총 수입 fetch 및 갱신
+        totalExpense.value = await store.getTotalExpense(); // 총 지출 fetch 및 갱신
+        netProfit.value = totalIncome.value - totalExpense.value; // 순이익 계산 및 갱신
       }
     );
 
+    // 컴포넌트가 마운트될 때 초기 데이터 fetch 및 설정
     onMounted(async () => {
-      await fetchRecentEntries();
-      totalIncome.value = await store.getTotalIncome();
-      totalExpense.value = await store.getTotalExpense();
-      netProfit.value = totalIncome.value - totalExpense.value;
-      currentMonth.value = store.selectMonth;
+      await fetchRecentEntries(); // 최근 거래 항목들 fetch
+      totalIncome.value = await store.getTotalIncome(); // 총 수입 fetch 및 갱신
+      totalExpense.value = await store.getTotalExpense(); // 총 지출 fetch 및 갱신
+      netProfit.value = totalIncome.value - totalExpense.value; // 순이익 계산 및 갱신
+      currentMonth.value = store.selectMonth; // 현재 월 설정
     });
+
     return {
       totalIncome,
       totalExpense,
