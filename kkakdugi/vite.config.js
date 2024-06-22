@@ -13,6 +13,7 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
+  base: "/KB-Finance-App/kkakdugi/",
   server: {
     proxy: {
       "/api": {
