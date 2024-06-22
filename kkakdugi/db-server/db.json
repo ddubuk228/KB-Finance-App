@@ -2,12 +2,12 @@
   "users": [
     {
       "id": "1",
-      "name": "깍두기",
-      "email": "aaa@gamil.com",
+      "name": "곰도리",
+      "email": "abc@gamil.com",
       "notification": true,
       "language": false,
       "theme": false,
-      "maxBudget": "30000"
+      "maxBudget": "20000"
     }
   ],
   "transaction": [
@@ -649,6 +649,24 @@
       "amount": 500,
       "memo": "메모 됩니다",
       "date": "2024-06-11"
+    },
+    {
+      "id": "72",
+      "type": "expense",
+      "category": "교통비",
+      "account": "택시",
+      "amount": 10000,
+      "memo": "작성",
+      "date": "2024-12-31"
+    },
+    {
+      "id": "73",
+      "type": "expense",
+      "category": "교통비",
+      "account": "집가고싶다",
+      "amount": 10000,
+      "memo": "작성",
+      "date": "2024-06-22"
     }
   ]
 }
